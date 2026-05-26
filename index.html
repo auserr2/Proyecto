@@ -3,200 +3,269 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<meta name="theme-color" content="#020c1e">
+<meta name="theme-color" content="#010912">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Nuestro Océano — La Contaminación y las Soluciones</title>
+<title>Salva el Mar — Las Playas de Los Ángeles</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
+
+/* ── TOKENS ─────────────────────────────────────────────────────────────────── */
+:root {
+  --ocean:   #0dd4f0;
+  --amber:   #f5a623;
+  --bg0:     #010912;
+  --bg1:     #021020;
+  --bg2:     #041428;
+  --text:    #e2eff8;
+  --muted:   rgba(226,239,248,0.52);
+  --border:  rgba(255,255,255,0.07);
+}
 
 /* ── RESET + BASE ───────────────────────────────────────────────────────────── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
-  background: #020c1e;
+  background: var(--bg0);
   font-family: 'Inter', -apple-system, 'Helvetica Neue', sans-serif;
-  color: #dde8f5;
+  color: var(--text);
   line-height: 1.6;
   overflow-x: hidden;
 }
+::selection { background: rgba(13,212,240,0.25); }
+img { display: block; }
 
 /* ── NAV ────────────────────────────────────────────────────────────────────── */
 #nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 20px 48px;
+  padding: 18px 52px;
   transition: background 0.4s ease, box-shadow 0.4s ease;
 }
 #nav.solid {
-  background: rgba(2,12,30,0.92);
-  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 1px 0 rgba(255,255,255,0.07);
+  background: rgba(1,9,18,0.94);
+  backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+  box-shadow: 0 1px 0 var(--border);
 }
 .nav-logo {
-  font-family: 'Playfair Display', serif;
-  font-size: 17px; font-weight: 700;
-  color: #fff; text-decoration: none; letter-spacing: 0.2px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px; font-weight: 600;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: var(--ocean); text-decoration: none;
 }
-.nav-links { display: flex; gap: 34px; list-style: none; }
+.nav-links { display: flex; gap: 36px; list-style: none; }
 .nav-links a {
   font-size: 11px; font-weight: 500;
   letter-spacing: 2.5px; text-transform: uppercase;
-  color: rgba(255,255,255,0.60); text-decoration: none;
+  color: rgba(255,255,255,0.55); text-decoration: none;
   transition: color 0.2s;
 }
-.nav-links a:hover { color: #fff; }
+.nav-links a:hover { color: var(--ocean); }
 
-/* ── CONTAINER ──────────────────────────────────────────────────────────────── */
-.container { max-width: 1060px; margin: 0 auto; padding: 0 44px; }
+/* ── SHARED LAYOUT ──────────────────────────────────────────────────────────── */
+.wrap   { max-width: 1080px; margin: 0 auto; padding: 0 48px; }
+.wrap-s { max-width:  720px; margin: 0 auto; padding: 0 48px; }
 
 /* ── REVEAL ─────────────────────────────────────────────────────────────────── */
 .reveal {
-  opacity: 0; transform: translateY(30px);
+  opacity: 0; transform: translateY(28px);
   transition: opacity 0.75s ease, transform 0.75s ease;
 }
-.reveal.d1 { transition-delay: 0.10s; }
-.reveal.d2 { transition-delay: 0.22s; }
-.reveal.d3 { transition-delay: 0.34s; }
-.reveal.d4 { transition-delay: 0.46s; }
+.reveal.d1 { transition-delay: 0.08s; }
+.reveal.d2 { transition-delay: 0.18s; }
+.reveal.d3 { transition-delay: 0.28s; }
+.reveal.d4 { transition-delay: 0.38s; }
 .reveal.in { opacity: 1; transform: none; }
 
-/* ── SECTION LABELS ─────────────────────────────────────────────────────────── */
-.sec-eyebrow {
+/* ── TYPE HELPERS ───────────────────────────────────────────────────────────── */
+.eyebrow {
   font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
-  color: rgba(255,255,255,0.35); margin-bottom: 12px;
+  color: var(--ocean); margin-bottom: 12px; display: block;
 }
-.sec-title {
+.headline {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(32px, 5vw, 56px); font-weight: 700;
-  color: #fff; line-height: 1.12; margin-bottom: 16px;
+  font-size: clamp(34px, 5.2vw, 60px); font-weight: 700;
+  color: #fff; line-height: 1.10; margin-bottom: 18px;
 }
-.sec-lead {
+.body-lead {
   font-size: clamp(15px, 1.9vw, 18px);
-  color: rgba(255,255,255,0.62); line-height: 1.72; max-width: 640px;
+  color: var(--muted); line-height: 1.72; max-width: 620px;
 }
-.sec-lead em  { font-style: italic; color: rgba(255,255,255,0.88); }
-.sec-lead strong { font-weight: 500; color: rgba(255,255,255,0.90); }
+.body-lead em     { font-style: italic; color: rgba(226,239,248,0.88); }
+.body-lead strong { font-weight: 500;   color: #fff; }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
    HERO
 ═══════════════════════════════════════════════════════════════════════════════ */
 #hero {
   position: relative;
-  height: 100vh; min-height: 560px;
+  height: 100vh; min-height: 580px;
   display: flex; align-items: center; justify-content: center;
   overflow: hidden;
-  background: linear-gradient(to bottom, #010915 0%, #03183a 40%, #07305a 70%, #0a4a6a 100%);
+  background: linear-gradient(160deg, #010912 0%, #02193d 50%, #051e40 100%);
 }
-.hero-bg {
-  position: absolute; inset: 0; z-index: 0;
-}
+.hero-bg { position: absolute; inset: 0; z-index: 0; }
 .hero-bg img {
-  width: 100%; height: 100%; object-fit: cover; display: block;
-  filter: brightness(0.38) saturate(1.15);
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(0.35) saturate(1.2);
 }
 .hero-bg::after {
   content: '';
   position: absolute; inset: 0;
-  background: linear-gradient(to bottom,
-    rgba(1,9,21,0.55) 0%,
-    rgba(1,9,21,0.12) 45%,
-    rgba(1,9,21,0.68) 100%);
+  background:
+    linear-gradient(to bottom, rgba(1,9,18,0.60) 0%, transparent 40%, rgba(1,9,18,0.75) 100%),
+    linear-gradient(to right, rgba(1,9,18,0.38) 0%, transparent 60%);
 }
-.hero-content {
+.hero-inner {
   position: relative; z-index: 1;
-  text-align: center; padding: 0 24px;
-  max-width: 700px;
+  max-width: 820px; padding: 0 32px;
 }
-.hero-eyebrow {
-  font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
-  color: rgba(255,255,255,0.45); margin-bottom: 20px;
+.hero-loc {
+  font-size: 11px; letter-spacing: 5px; text-transform: uppercase;
+  color: var(--ocean); margin-bottom: 22px;
+  display: flex; align-items: center; gap: 10px;
+}
+.hero-loc::before {
+  content: '';
+  display: inline-block; width: 28px; height: 1px;
+  background: var(--ocean);
 }
 .hero-title {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(52px, 10vw, 112px);
-  font-weight: 700; line-height: 1.05; color: #fff;
-  text-shadow: 0 2px 48px rgba(0,0,0,0.80);
-  margin-bottom: 22px;
+  font-size: clamp(56px, 11vw, 122px);
+  font-weight: 700; line-height: 0.95; color: #fff;
+  text-shadow: 0 4px 60px rgba(0,0,0,0.75);
+  margin-bottom: 28px;
 }
-.hero-title em { font-style: italic; color: #7de3ff; }
+.hero-title em { font-style: italic; color: var(--ocean); }
 .hero-sub {
-  font-size: clamp(15px, 2vw, 19px);
-  color: rgba(255,255,255,0.68); line-height: 1.65; margin-bottom: 52px;
+  font-size: clamp(15px, 2.1vw, 20px);
+  color: rgba(255,255,255,0.65); max-width: 520px;
+  line-height: 1.62; margin-bottom: 44px;
 }
+.hero-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 32px; border-radius: 4px;
+  background: var(--ocean); color: #010912;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.hero-cta:hover { opacity: 0.88; }
 .scroll-cue {
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  color: rgba(255,255,255,0.35); font-size: 10px;
-  letter-spacing: 3px; text-transform: uppercase;
-  animation: floatDown 2.8s ease-in-out infinite;
+  position: absolute; bottom: 36px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(255,255,255,0.30);
+  animation: floatDown 3s ease-in-out infinite;
 }
-@keyframes floatDown { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+@keyframes floatDown { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
    EL PROBLEMA
 ═══════════════════════════════════════════════════════════════════════════════ */
 #problema {
-  padding: 100px 0 90px;
-  background: #040f26;
+  padding: 108px 0 96px;
+  background: var(--bg1);
+  border-top: 1px solid var(--border);
 }
 .stats-row {
   display: grid; grid-template-columns: repeat(3,1fr);
-  gap: 18px; margin-top: 48px;
+  gap: 1px; margin-top: 56px;
+  border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
 }
-.stat-card {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 14px; padding: 28px 22px; text-align: center;
+.stat {
+  padding: 32px 28px; text-align: center;
+  background: rgba(255,255,255,0.025);
 }
-.stat-num {
+.stat-n {
   font-family: 'Playfair Display', serif;
-  font-size: 44px; font-weight: 700;
-  color: #7de3ff; line-height: 1; margin-bottom: 8px;
+  font-size: 48px; font-weight: 700;
+  color: var(--amber); line-height: 1; margin-bottom: 8px;
 }
-.stat-label { font-size: 13px; color: rgba(255,255,255,0.50); line-height: 1.5; }
+.stat-l { font-size: 13px; color: var(--muted); line-height: 1.5; }
 
-.img-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 16px; margin-top: 44px;
+.photo-grid {
+  display: grid; grid-template-columns: 3fr 2fr;
+  gap: 14px; margin-top: 52px;
 }
-.img-card {
-  position: relative; border-radius: 14px; overflow: hidden;
-  aspect-ratio: 4/3; background: #0a1a30;
+.photo-card {
+  position: relative; overflow: hidden; border-radius: 12px;
+  background: var(--bg2);
 }
-.img-card img {
-  width: 100%; height: 100%; object-fit: cover; display: block;
-  transition: transform 0.55s ease;
+.photo-card img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.6s ease;
 }
-.img-card:hover img { transform: scale(1.04); }
-.img-caption {
+.photo-card:hover img { transform: scale(1.04); }
+.photo-card--tall { aspect-ratio: 3/2; }
+.photo-card--sq   { aspect-ratio: 1/1; }
+.photo-label {
   position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 10px 14px;
-  background: linear-gradient(to top, rgba(0,0,0,0.72), transparent);
-  font-size: 12px; color: rgba(255,255,255,0.72);
+  padding: 12px 16px;
+  background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+  font-size: 11px; color: rgba(255,255,255,0.70);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
-   MI DIORAMA
+   FULLWIDTH BAND (wildlife/impact)
+═══════════════════════════════════════════════════════════════════════════════ */
+.band {
+  position: relative;
+  height: 60vh; min-height: 400px;
+  overflow: hidden;
+  background: #020c1e;
+}
+.band img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(0.48) saturate(1.05);
+}
+.band-text {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  padding: 40px;
+  background:
+    linear-gradient(to top, rgba(1,9,18,0.85) 0%, transparent 50%),
+    linear-gradient(to bottom, rgba(1,9,18,0.35) 0%, transparent 40%);
+}
+.band-quote {
+  max-width: 700px; text-align: center;
+}
+.band-quote p {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px, 4vw, 42px);
+  font-style: italic; color: #fff;
+  line-height: 1.45;
+  text-shadow: 0 2px 28px rgba(0,0,0,0.60);
+}
+.band-quote p .hl { color: var(--ocean); font-style: normal; }
+.band-quote p em  { font-style: italic; }
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   DIORAMA SECTION
 ═══════════════════════════════════════════════════════════════════════════════ */
 #diorama-section {
-  padding: 88px 0 72px;
-  background: #030b1c;
+  padding: 96px 0 80px;
+  background: var(--bg0);
+  border-top: 1px solid var(--border);
 }
 .diorama-wrap {
   position: relative;
-  height: 62vh; min-height: 460px; max-height: 680px;
-  margin-top: 36px;
-  border-radius: 22px; overflow: hidden;
+  height: 62vh; min-height: 460px; max-height: 700px;
+  margin-top: 40px;
+  border-radius: 18px; overflow: hidden;
   background: #040d1e;
-  box-shadow: 0 32px 80px rgba(0,0,0,0.60), inset 0 0 0 1px rgba(255,255,255,0.06);
+  box-shadow: 0 0 0 1px rgba(13,212,240,0.10), 0 40px 90px rgba(0,0,0,0.55);
 }
 #diorama-canvas {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
 }
-/* Side labels — left/right inside the canvas */
 .d-label {
   position: absolute; top: 50%; transform: translateY(-50%);
   z-index: 10; pointer-events: none;
@@ -205,180 +274,165 @@ body {
 .d-label.right { right: 20px; }
 .d-badge {
   display: inline-block;
-  font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
-  font-weight: 500; padding: 8px 18px; border-radius: 40px;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  padding: 7px 16px; border-radius: 40px;
 }
 .d-badge.poll {
-  color: #ff9070; border: 1px solid rgba(255,120,60,0.30);
-  background: rgba(255,70,20,0.12);
+  color: #ffaa80; border: 1px solid rgba(255,140,80,0.28);
+  background: rgba(255,80,20,0.10);
 }
 .d-badge.cln {
-  color: #7de3ff; border: 1px solid rgba(100,220,255,0.28);
-  background: rgba(10,170,255,0.10);
+  color: var(--ocean); border: 1px solid rgba(13,212,240,0.26);
+  background: rgba(13,212,240,0.08);
 }
-.diorama-hint {
+.diorama-foot {
   margin-top: 14px; text-align: center;
   font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
-  color: rgba(255,255,255,0.28);
+  color: rgba(255,255,255,0.25);
 }
-
-/* Rotate button — inside diorama wrapper */
 #rotateBtn {
   position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
   z-index: 20;
-  background: rgba(0,0,0,0.45);
+  background: rgba(0,0,0,0.50);
   backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-  padding: 10px 30px; border-radius: 40px;
-  border: 1px solid rgba(255,255,255,0.14);
-  color: rgba(255,255,255,0.75); cursor: pointer;
+  padding: 9px 28px; border-radius: 40px;
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.68); cursor: pointer;
   font-family: 'Inter', sans-serif;
   font-size: 10px; font-weight: 500; letter-spacing: 3.5px; text-transform: uppercase;
   white-space: nowrap; -webkit-tap-highlight-color: transparent;
   transition: background 0.25s, border-color 0.25s, color 0.25s;
   min-width: 44px; min-height: 44px;
 }
-#rotateBtn:hover { background: rgba(255,255,255,0.10); border-color: rgba(255,255,255,0.32); color: #fff; }
+#rotateBtn:hover { background: rgba(13,212,240,0.15); border-color: rgba(13,212,240,0.40); color: var(--ocean); }
 #rotateBtn:active { transform: translateX(-50%) scale(0.97); }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
    LA SOLUCIÓN
 ═══════════════════════════════════════════════════════════════════════════════ */
 #solucion {
-  padding: 100px 0;
-  background: #040f26;
-  border-top: 1px solid rgba(255,255,255,0.05);
+  padding: 108px 0;
+  background: var(--bg1);
+  border-top: 1px solid var(--border);
 }
-.sol-grid {
+.sol-layout {
   display: grid; grid-template-columns: 1fr 1fr;
-  gap: 52px; margin-top: 48px; align-items: start;
+  gap: 64px; margin-top: 56px; align-items: start;
 }
 .sol-photo {
-  border-radius: 18px; overflow: hidden;
-  aspect-ratio: 4/3; background: #0a1a30;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+  border-radius: 16px; overflow: hidden;
+  aspect-ratio: 4/3; background: var(--bg2);
+  box-shadow: 0 24px 64px rgba(0,0,0,0.45);
 }
-.sol-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.sol-steps { display: flex; flex-direction: column; gap: 26px; }
-.step { display: flex; gap: 16px; align-items: flex-start; }
+.sol-photo img { width: 100%; height: 100%; object-fit: cover; }
+.steps { display: flex; flex-direction: column; gap: 28px; }
+.step  { display: flex; gap: 18px; align-items: flex-start; }
 .step-n {
   font-family: 'Playfair Display', serif;
-  font-size: 30px; font-weight: 700; color: #7de3ff;
-  line-height: 1; flex-shrink: 0; width: 34px; padding-top: 2px;
+  font-size: 28px; font-weight: 700; color: var(--ocean);
+  line-height: 1; flex-shrink: 0; width: 32px; padding-top: 3px;
 }
-.step-txt { font-size: 15px; color: rgba(255,255,255,0.65); line-height: 1.70; }
-.step-txt strong { color: #fff; font-weight: 500; }
-.step-txt em { font-style: italic; color: rgba(255,255,255,0.88); }
+.step-t { font-size: 15px; color: var(--muted); line-height: 1.72; }
+.step-t em     { font-style: italic; color: rgba(226,239,248,0.88); }
+.step-t strong { font-weight: 500; color: #fff; }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
-   QUOTE BLOCK
+   ACTÚA — CTA
 ═══════════════════════════════════════════════════════════════════════════════ */
-.quote-section {
-  padding: 80px 0;
-  background: #02080f;
-  border-top: 1px solid rgba(255,255,255,0.05);
+#actua {
+  padding: 108px 0;
+  background: var(--bg0);
+  border-top: 1px solid var(--border);
 }
-.quote-inner {
-  max-width: 700px; margin: 0 auto;
-  text-align: center; padding: 0 24px;
+.actua-quote {
+  text-align: center; max-width: 640px;
+  margin: 0 auto 72px;
 }
-.quote-mark {
+.actua-quote p {
   font-family: 'Playfair Display', serif;
-  font-size: 80px; color: rgba(125,227,255,0.18);
-  line-height: 0.3; display: block; margin-bottom: 24px;
+  font-size: clamp(19px, 3vw, 28px);
+  font-style: italic; color: rgba(255,255,255,0.80);
+  line-height: 1.58;
 }
-.quote-text {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(20px, 3vw, 30px);
-  font-style: italic; color: rgba(255,255,255,0.88);
-  line-height: 1.60;
-}
-.quote-text .hl { color: #7de3ff; font-style: normal; }
-.quote-text em  { font-style: italic; }
+.actua-quote em { font-style: italic; }
+.actua-quote .hl { color: var(--ocean); font-style: normal; }
+.actua-quote .hl-w { color: var(--amber); font-style: normal; }
 
-/* ═══════════════════════════════════════════════════════════════════════════════
-   ACCIÓN
-═══════════════════════════════════════════════════════════════════════════════ */
-#accion {
-  padding: 100px 0;
-  background: #02080f;
-  border-top: 1px solid rgba(255,255,255,0.05);
-}
-.cta-intro { margin-bottom: 52px; }
-.action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
-.ac {
-  border-radius: 20px; padding: 36px 30px; position: relative;
+.cmd-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; }
+.cmd {
+  border-radius: 16px; padding: 34px 30px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.ac:hover { transform: translateY(-4px); box-shadow: 0 18px 48px rgba(0,0,0,0.40); }
-.ac.pos {
-  background: linear-gradient(135deg, rgba(14,82,64,0.55), rgba(6,44,34,0.78));
-  border: 1px solid rgba(60,200,140,0.15);
+.cmd:hover { transform: translateY(-4px); box-shadow: 0 18px 50px rgba(0,0,0,0.40); }
+.cmd.yes {
+  background: linear-gradient(135deg, rgba(10,100,80,0.45), rgba(4,48,36,0.72));
+  border: 1px solid rgba(13,212,240,0.14);
 }
-.ac.neg {
-  background: linear-gradient(135deg, rgba(80,22,14,0.55), rgba(44,8,6,0.78));
-  border: 1px solid rgba(220,80,40,0.15);
+.cmd.no {
+  background: linear-gradient(135deg, rgba(100,40,10,0.45), rgba(50,16,4,0.72));
+  border: 1px solid rgba(245,166,35,0.14);
 }
-.ac-tag {
-  font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
-  padding: 4px 10px; border-radius: 20px;
-  display: inline-block; margin-bottom: 14px;
-}
-.ac.pos .ac-tag { color: rgba(100,240,170,0.70); border: 1px solid rgba(100,240,170,0.18); }
-.ac.neg .ac-tag { color: rgba(255,140,100,0.70); border: 1px solid rgba(255,140,100,0.18); }
-.ac-cmd {
+.cmd-text {
   font-family: 'Playfair Display', serif;
-  font-size: 27px; font-weight: 700; line-height: 1.2; margin-bottom: 10px;
+  font-size: 28px; font-weight: 700; line-height: 1.15; margin-bottom: 10px;
 }
-.ac.pos .ac-cmd { color: #6dffca; }
-.ac.neg .ac-cmd { color: #ffaa88; }
-.ac-desc { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.65; }
+.cmd.yes .cmd-text { color: #7dffd8; }
+.cmd.no  .cmd-text { color: #ffc580; }
+.cmd-desc { font-size: 14px; color: var(--muted); line-height: 1.65; }
+.cmd-desc em     { font-style: italic; }
+.cmd-desc strong { font-weight: 500; color: rgba(255,255,255,0.80); }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
    FOOTER
 ═══════════════════════════════════════════════════════════════════════════════ */
 footer {
-  background: #010610; border-top: 1px solid rgba(255,255,255,0.05);
-  padding: 48px 44px; text-align: center;
+  background: #00050d;
+  border-top: 1px solid var(--border);
+  padding: 52px 52px; text-align: center;
 }
-.foot-logo {
-  font-family: 'Playfair Display', serif;
-  font-size: 18px; color: rgba(255,255,255,0.45); margin-bottom: 10px;
+.foot-brand {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 5px; text-transform: uppercase;
+  color: var(--ocean); margin-bottom: 12px;
 }
 .foot-sub { font-size: 13px; color: rgba(255,255,255,0.25); line-height: 1.9; }
-.foot-sub a { color: rgba(255,255,255,0.40); text-decoration: none; }
-.foot-sub a:hover { color: rgba(255,255,255,0.72); }
+.foot-sub a { color: rgba(255,255,255,0.38); text-decoration: none; }
+.foot-sub a:hover { color: var(--ocean); }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
    MOBILE
 ═══════════════════════════════════════════════════════════════════════════════ */
-@media (max-width: 700px) {
+@media (max-width: 720px) {
   #nav { padding: 14px 20px; }
   .nav-links { display: none; }
-  .container { padding: 0 20px; }
-  .stats-row { grid-template-columns: 1fr; gap: 12px; }
-  .img-grid { grid-template-columns: 1fr; }
-  .sol-grid { grid-template-columns: 1fr; gap: 32px; }
-  .action-grid { grid-template-columns: 1fr; }
-  #problema, #solucion, #accion { padding: 70px 0; }
-  #diorama-section { padding: 60px 0 52px; }
-  .diorama-wrap { height: 52vh; min-height: 340px; }
+  .wrap, .wrap-s { padding: 0 20px; }
+  .stats-row { grid-template-columns: 1fr; gap: 0; }
+  .photo-grid { grid-template-columns: 1fr; }
+  .photo-card--sq { aspect-ratio: 3/2; }
+  .sol-layout { grid-template-columns: 1fr; gap: 36px; }
+  .cmd-grid { grid-template-columns: 1fr; }
+  .diorama-wrap { height: 54vh; min-height: 340px; }
   .d-label { display: none; }
-  footer { padding: 36px 20px; }
+  #problema, #solucion, #actua { padding: 72px 0; }
+  #diorama-section { padding: 64px 0 56px; }
+  footer { padding: 40px 20px; }
+  .band { height: 50vh; }
 }
 </style>
 </head>
 <body>
 
 <!-- ════════════════════════════════════════════════════════════════════════════
-     NAVIGATION
+     NAV
 ════════════════════════════════════════════════════════════════════════════════ -->
 <nav id="nav">
-  <a class="nav-logo" href="#hero">Nuestro Océano</a>
+  <a class="nav-logo" href="#hero">Salva el Mar</a>
   <ul class="nav-links">
     <li><a href="#problema">El Problema</a></li>
-    <li><a href="#diorama-section">Mi Diorama</a></li>
+    <li><a href="#diorama-section">El Diorama</a></li>
     <li><a href="#solucion">La Solución</a></li>
-    <li><a href="#accion">Acción</a></li>
+    <li><a href="#actua">Actúa</a></li>
   </ul>
 </nav>
 
@@ -389,22 +443,24 @@ footer {
   <div class="hero-bg">
     <img
       src="https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=1920&q=80"
-      alt="El océano"
+      alt="El océano de Los Ángeles"
       onerror="this.style.display='none'"
     >
   </div>
-  <div class="hero-content">
-    <p class="hero-eyebrow">Español 3 — Proyecto Final</p>
-    <h1 class="hero-title">Nuestro <em>Océano</em></h1>
-    <p class="hero-sub">La contaminación es un problema real.<br>¿Podemos ayudar?</p>
-    <div class="scroll-cue" aria-hidden="true">
-      <span>Desplázate</span>
-      <svg width="14" height="20" viewBox="0 0 14 20" fill="none">
-        <path d="M7 1v12M1 9l6 7 6-7"
-          stroke="rgba(255,255,255,0.45)" stroke-width="1.5"
-          stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
+  <div class="hero-inner">
+    <p class="hero-loc">Los Ángeles, California</p>
+    <h1 class="hero-title">Salva<br><em>el Mar</em></h1>
+    <p class="hero-sub">
+      La contaminación afecta las playas de Los Ángeles.
+      Podemos proteger el océano juntos.
+    </p>
+    <a href="#problema" class="hero-cta">Ver el problema</a>
+  </div>
+  <div class="scroll-cue" aria-hidden="true">
+    <svg width="14" height="20" viewBox="0 0 14 20" fill="none">
+      <path d="M7 1v12M1 9l6 6 6-6" stroke="currentColor" stroke-width="1.4"
+        stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
   </div>
 </section>
 
@@ -412,48 +468,47 @@ footer {
      EL PROBLEMA
 ════════════════════════════════════════════════════════════════════════════════ -->
 <section id="problema">
-  <div class="container">
+  <div class="wrap">
 
-    <p class="sec-eyebrow reveal">La Crisis</p>
-    <h2 class="sec-title reveal d1">El Problema</h2>
-    <p class="sec-lead reveal d2">
-      El océano <em>era</em> muy bonito.
-      Los animales <em>vivían</em> en agua clara.
-      Pero la basura <em>llegó</em> a la playa —
-      <strong>por la contaminación</strong>, todo cambió.
+    <span class="eyebrow reveal">El Problema</span>
+    <h2 class="headline reveal d1">El Mar Está<br>en Peligro</h2>
+    <p class="body-lead reveal d2">
+      La playa <em>estaba</em> limpia. La contaminación
+      <em>llegó</em> al océano <strong>por las fábricas</strong>
+      y el plástico. Ahora el medio ambiente está en peligro.
     </p>
 
     <div class="stats-row">
-      <div class="stat-card reveal d1">
-        <div class="stat-num">8M</div>
-        <div class="stat-label">toneladas de plástico al océano cada año</div>
+      <div class="stat reveal d1">
+        <div class="stat-n">200K</div>
+        <div class="stat-l">kilos de basura en las playas de LA cada año</div>
       </div>
-      <div class="stat-card reveal d2">
-        <div class="stat-num">1M</div>
-        <div class="stat-label">animales marinos mueren por la basura</div>
+      <div class="stat reveal d2">
+        <div class="stat-n">50%</div>
+        <div class="stat-l">del plástico nunca se recicla en California</div>
       </div>
-      <div class="stat-card reveal d3">
-        <div class="stat-num">70%</div>
-        <div class="stat-label">del oxígeno viene del océano</div>
+      <div class="stat reveal d3">
+        <div class="stat-n">1M+</div>
+        <div class="stat-l">animales marinos en peligro por la contaminación</div>
       </div>
     </div>
 
-    <div class="img-grid reveal d2">
-      <div class="img-card">
+    <div class="photo-grid">
+      <div class="photo-card photo-card--tall reveal d1">
         <img
-          src="https://images.unsplash.com/photo-1621451537084-482c73073a0f?w=900&q=80"
-          alt="Plástico en el océano"
+          src="https://images.unsplash.com/photo-1621451537084-482c73073a0f?w=1200&q=80"
+          alt="Basura en la playa"
           onerror="this.style.display='none'"
         >
-        <div class="img-caption">Plástico flotando en el océano</div>
+        <div class="photo-label">Basura plástica en las playas de Los Ángeles</div>
       </div>
-      <div class="img-card">
+      <div class="photo-card photo-card--sq reveal d2">
         <img
           src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=900&q=80"
           alt="Tortuga marina"
           onerror="this.style.display='none'"
         >
-        <div class="img-caption">La tortuga necesita agua limpia para vivir</div>
+        <div class="photo-label">Las tortugas están en peligro</div>
       </div>
     </div>
 
@@ -461,34 +516,49 @@ footer {
 </section>
 
 <!-- ════════════════════════════════════════════════════════════════════════════
-     MI DIORAMA 3D
+     FULLWIDTH BAND — wildlife impact
+════════════════════════════════════════════════════════════════════════════════ -->
+<div class="band">
+  <img
+    src="https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?w=1920&q=80"
+    alt="Tortuga marina en el océano"
+    onerror="this.style.display='none'"
+  >
+  <div class="band-text">
+    <div class="band-quote reveal">
+      <p>
+        Muchas tortugas <em>murieron</em>
+        <span class="hl">por el plástico</span>
+        en el océano de Los Ángeles.
+        Los peces <em>vivían</em> en agua limpia —
+        ahora el mar está contaminado.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════════════
+     DIORAMA
 ════════════════════════════════════════════════════════════════════════════════ -->
 <section id="diorama-section">
-  <div class="container">
-    <p class="sec-eyebrow reveal">Interactivo</p>
-    <h2 class="sec-title reveal d1">Mi Diorama</h2>
-    <p class="sec-lead reveal d2">
-      A la izquierda: el océano contaminado.
-      A la derecha: el océano limpio.
-      Usa el ratón para girar y explorar.
+  <div class="wrap">
+    <span class="eyebrow reveal">Arte Interactivo</span>
+    <h2 class="headline reveal d1">Mira la Diferencia</h2>
+    <p class="body-lead reveal d2">
+      A la izquierda: el océano contaminado.<br>
+      A la derecha: el océano limpio.<br>
+      Arrastra para explorar los dos lados.
     </p>
   </div>
 
-  <div class="container" style="margin-top: 0;">
+  <div class="wrap" style="margin-top: 0;">
     <div class="diorama-wrap reveal d1">
-
-      <!-- Three.js renders here -->
       <div id="diorama-canvas"></div>
-
-      <!-- Side labels -->
       <div class="d-label left"><span class="d-badge poll">← Contaminado</span></div>
       <div class="d-label right"><span class="d-badge cln">Limpio →</span></div>
-
-      <!-- Rotate toggle -->
       <button id="rotateBtn" aria-label="Toggle auto-rotation">AUTO-ROTATE</button>
-
     </div>
-    <p class="diorama-hint">Arrastra para girar · Pellizca para hacer zoom</p>
+    <p class="diorama-foot">Arrastra para girar · Toca para explorar</p>
   </div>
 </section>
 
@@ -496,52 +566,52 @@ footer {
      LA SOLUCIÓN
 ════════════════════════════════════════════════════════════════════════════════ -->
 <section id="solucion">
-  <div class="container">
+  <div class="wrap">
 
-    <p class="sec-eyebrow reveal">El Futuro</p>
-    <h2 class="sec-title reveal d1">La Solución</h2>
-    <p class="sec-lead reveal d2">
-      El océano <em>será</em> limpio otra vez.
-      Los peces <em>vivirán</em> mejor, y la playa <em>estará</em> bonita
-      — <strong>para los animales</strong> y <strong>para nosotros</strong>.
-      Todos <em>cambiaremos</em> el problema juntos.
+    <span class="eyebrow reveal">Podemos Cambiar</span>
+    <h2 class="headline reveal d1">La Solución</h2>
+    <p class="body-lead reveal d2">
+      Las playas <em>serán</em> más limpias.
+      Los animales <em>vivirán</em> mejor.
+      Todos <em>ayudaremos</em> a mejorar el mar —
+      la naturaleza <em>mejorará</em> con tu ayuda.
     </p>
 
-    <div class="sol-grid">
+    <div class="sol-layout">
       <div class="sol-photo reveal d1">
         <img
           src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80"
-          alt="Playa limpia"
+          alt="Playa limpia en Los Ángeles"
           onerror="this.style.display='none'"
         >
       </div>
-      <div class="sol-steps">
+      <div class="steps">
         <div class="step reveal d1">
           <span class="step-n">1</span>
-          <p class="step-txt">
-            Es importante que <em>reciclemos</em> el plástico
-            en casa y en la escuela.
+          <p class="step-t">
+            Es importante que <em>reciclemos</em> las latas
+            y el plástico en casa y en la escuela.
           </p>
         </div>
         <div class="step reveal d2">
           <span class="step-n">2</span>
-          <p class="step-txt">
-            Queremos que el gobierno <em>actúe</em> ahora
-            para proteger el océano.
+          <p class="step-t">
+            Queremos que el gobierno <em>proteja</em>
+            el océano con nuevas leyes de conservación.
           </p>
         </div>
         <div class="step reveal d3">
           <span class="step-n">3</span>
-          <p class="step-txt">
-            <strong>Limpia</strong> la playa con tu familia.
-            Cada bolsa de basura ayuda.
+          <p class="step-t">
+            Recogemos basura <strong>por la mañana</strong>
+            en las playas de Los Ángeles — ¡tú puedes ayudar!
           </p>
         </div>
         <div class="step reveal d4">
           <span class="step-n">4</span>
-          <p class="step-txt">
-            <strong>Usa</strong> menos plástico cada día.
-            Las tortugas te lo agradecen.
+          <p class="step-t">
+            Reciclamos <strong>para conservar</strong>
+            el medio ambiente y proteger a los animales del mar.
           </p>
         </div>
       </div>
@@ -551,62 +621,48 @@ footer {
 </section>
 
 <!-- ════════════════════════════════════════════════════════════════════════════
-     QUOTE
+     ACTÚA
 ════════════════════════════════════════════════════════════════════════════════ -->
-<div class="quote-section">
-  <div class="quote-inner">
-    <span class="quote-mark reveal" aria-hidden="true">"</span>
-    <p class="quote-text reveal d1">
-      <em>Contaminamos</em> el océano
-      <span class="hl">por muchos años.</span>
-      No quiero que el océano <span class="hl">muera.</span>
-      Espero que tú también <em>limpies</em> la playa.
-    </p>
-  </div>
-</div>
+<section id="actua">
+  <div class="wrap">
 
-<!-- ════════════════════════════════════════════════════════════════════════════
-     ACCIÓN
-════════════════════════════════════════════════════════════════════════════════ -->
-<section id="accion">
-  <div class="container">
+    <span class="eyebrow reveal">Actúa Ahora</span>
+    <h2 class="headline reveal d1">¿Qué Puedes Hacer?</h2>
 
-    <div class="cta-intro">
-      <p class="sec-eyebrow reveal">¿Qué Puedes Hacer?</p>
-      <h2 class="sec-title reveal d1">¡Actúa Ahora!</h2>
+    <div class="actua-quote reveal d2">
+      <p>
+        No quiero que el mar <span class="hl-w">muera</span>.
+        Espero que tú también <span class="hl">cuides</span> la playa.
+      </p>
     </div>
 
-    <div class="action-grid">
-      <div class="ac pos reveal d1">
-        <span class="ac-tag">Mando afirmativo</span>
-        <p class="ac-cmd">¡Recicla!</p>
-        <p class="ac-desc">
-          Separa el plástico en casa.
-          Recicla <strong>para</strong> los animales del océano.
+    <div class="cmd-grid">
+      <div class="cmd yes reveal d1">
+        <p class="cmd-text">¡Recicla las latas!</p>
+        <p class="cmd-desc">
+          Separa el plástico y las latas en casa.
+          Hazlo <em>para</em> los animales del océano.
         </p>
       </div>
-      <div class="ac pos reveal d2">
-        <span class="ac-tag">Mando afirmativo</span>
-        <p class="ac-cmd">¡Protege!</p>
-        <p class="ac-desc">
-          Protege la playa cuando vas al mar.
-          No dejes basura en la arena.
+      <div class="cmd yes reveal d2">
+        <p class="cmd-text">¡Protege el océano!</p>
+        <p class="cmd-desc">
+          Únete a una limpieza de playa en Malibu
+          o Santa Mónica este fin de semana.
         </p>
       </div>
-      <div class="ac neg reveal d3">
-        <span class="ac-tag">Mando negativo</span>
-        <p class="ac-cmd">¡No contamines!</p>
-        <p class="ac-desc">
-          No contamines el agua del río
-          ni de la playa. Los peces viven allí.
+      <div class="cmd no reveal d3">
+        <p class="cmd-text">¡No tires plástico!</p>
+        <p class="cmd-desc">
+          No tires plástico en la playa ni en el río.
+          La basura llega al océano y destruye la naturaleza.
         </p>
       </div>
-      <div class="ac neg reveal d4">
-        <span class="ac-tag">Mando negativo</span>
-        <p class="ac-cmd">¡No uses plástico!</p>
-        <p class="ac-desc">
-          No uses plástico de un solo uso.
-          Usa botellas reutilizables en la playa.
+      <div class="cmd no reveal d4">
+        <p class="cmd-text">¡No contamines el agua!</p>
+        <p class="cmd-desc">
+          Evita contaminar los ríos y el lago.
+          El agua limpia es esencial <em>para</em> el medio ambiente.
         </p>
       </div>
     </div>
@@ -618,9 +674,9 @@ footer {
      FOOTER
 ════════════════════════════════════════════════════════════════════════════════ -->
 <footer>
-  <p class="foot-logo">Nuestro Océano</p>
+  <p class="foot-brand">Salva el Mar</p>
   <p class="foot-sub">
-    Proyecto Final · Español 3<br>
+    Una campaña para proteger las playas de Los Ángeles<br>
     3D con <a href="https://threejs.org" target="_blank" rel="noopener">Three.js</a> ·
     Fotos de <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a>
   </p>
@@ -648,41 +704,39 @@ import { OutputPass }      from 'three/addons/postprocessing/OutputPass.js';
 // ─── DEVICE TIER ──────────────────────────────────────────────────────────────
 const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || window.innerWidth < 768;
 const isLowEnd = isMobile && (navigator.hardwareConcurrency ?? 4) <= 4;
-
 const Q = {
-  waterSegsC:  isMobile ? [40, 30]  : [90, 70],
-  waterSegsP:  isMobile ? [22, 18]  : [50, 38],
-  sandSegs:    isMobile ? [10,  6]  : [22, 14],
-  shadowSize:  isMobile ? 1024      : 2048,
-  bloom:       !isLowEnd,
-  dpr:         Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2),
+  waterSegsC: isMobile ? [40, 30] : [90, 70],
+  waterSegsP: isMobile ? [22, 18] : [50, 38],
+  sandSegs:   isMobile ? [10,  6] : [22, 14],
+  shadowSize: isMobile ? 1024     : 2048,
+  bloom:      !isLowEnd,
+  dpr:        Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2),
 };
 
-// ─── RENDERER — contained in the diorama section ──────────────────────────────
-const canvasContainer = document.getElementById('diorama-canvas');
-const cW = canvasContainer.clientWidth  || 800;
-const cH = canvasContainer.clientHeight || 500;
+// ─── RENDERER ─────────────────────────────────────────────────────────────────
+const cc = document.getElementById('diorama-canvas');
+const cW = cc.clientWidth  || 800;
+const cH = cc.clientHeight || 500;
 
 const renderer = new THREE.WebGLRenderer({ antialias: !isMobile, powerPreference: 'high-performance' });
 renderer.setSize(cW, cH);
 renderer.setPixelRatio(Q.dpr);
-renderer.shadowMap.enabled        = true;
-renderer.shadowMap.type           = isMobile ? THREE.BasicShadowMap : THREE.PCFSoftShadowMap;
-renderer.toneMapping              = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure      = 1.15;
-renderer.outputColorSpace         = THREE.SRGBColorSpace;
-canvasContainer.appendChild(renderer.domElement);
+renderer.shadowMap.enabled   = true;
+renderer.shadowMap.type      = isMobile ? THREE.BasicShadowMap : THREE.PCFSoftShadowMap;
+renderer.toneMapping         = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.15;
+renderer.outputColorSpace    = THREE.SRGBColorSpace;
+cc.appendChild(renderer.domElement);
 
 // ─── SCENE + FOG ──────────────────────────────────────────────────────────────
 const scene = new THREE.Scene();
 scene.fog   = new THREE.FogExp2(0x9ac4d8, 0.007);
 
 // ─── SKY ──────────────────────────────────────────────────────────────────────
-const skyCanvas  = document.createElement('canvas');
-skyCanvas.width  = 4;
-skyCanvas.height = 512;
-const skyCtx     = skyCanvas.getContext('2d');
-const skyGrad    = skyCtx.createLinearGradient(0, 0, 0, 512);
+const skyC = document.createElement('canvas');
+skyC.width = 4; skyC.height = 512;
+const skyCtx  = skyC.getContext('2d');
+const skyGrad = skyCtx.createLinearGradient(0, 0, 0, 512);
 skyGrad.addColorStop(0.00, '#050f22');
 skyGrad.addColorStop(0.28, '#0d3468');
 skyGrad.addColorStop(0.55, '#1a72b8');
@@ -691,7 +745,7 @@ skyGrad.addColorStop(0.90, '#f0c870');
 skyGrad.addColorStop(1.00, '#d06828');
 skyCtx.fillStyle = skyGrad;
 skyCtx.fillRect(0, 0, 4, 512);
-scene.background = new THREE.CanvasTexture(skyCanvas);
+scene.background = new THREE.CanvasTexture(skyC);
 
 // ─── CAMERA ───────────────────────────────────────────────────────────────────
 const camera = new THREE.PerspectiveCamera(50, cW / cH, 0.5, 600);
@@ -706,7 +760,7 @@ controls.minDistance   = 20;
 controls.maxDistance   = 95;
 controls.maxPolarAngle = Math.PI / 2.1;
 controls.target.set(0, 1.5, 0);
-controls.enableZoom    = false; // prevents zoom conflict with page scroll
+controls.enableZoom    = false;
 // NOTE: do NOT set controls.touches — THREE.TOUCH is not exported from three@0.160
 
 // ─── POST-PROCESSING ──────────────────────────────────────────────────────────
@@ -717,7 +771,6 @@ if (Q.bloom) {
   composer.addPass(new UnrealBloomPass(new THREE.Vector2(cW, cH), 0.48, 0.38, 0.85));
   composer.addPass(new OutputPass());
 }
-
 function doRender() {
   if (composer) { composer.render(); } else { renderer.render(scene, camera); }
 }
@@ -725,86 +778,69 @@ function doRender() {
 // ─── LIGHTING ─────────────────────────────────────────────────────────────────
 scene.add(new THREE.AmbientLight(0x99bbdd, 0.28));
 scene.add(new THREE.HemisphereLight(0xffeedd, 0x1a3355, 0.55));
-
 const sun = new THREE.DirectionalLight(0xfff3cc, 2.4);
 sun.position.set(30, 32, 16);
-sun.castShadow                   = true;
+sun.castShadow = true;
 sun.shadow.mapSize.set(Q.shadowSize, Q.shadowSize);
-sun.shadow.camera.left           = -55;
-sun.shadow.camera.right          =  55;
-sun.shadow.camera.top            =  55;
-sun.shadow.camera.bottom         = -55;
-sun.shadow.camera.far            = 140;
-sun.shadow.bias                  = -0.0004;
+sun.shadow.camera.left = -55; sun.shadow.camera.right  =  55;
+sun.shadow.camera.top  =  55; sun.shadow.camera.bottom = -55;
+sun.shadow.camera.far  = 140; sun.shadow.bias = -0.0004;
 scene.add(sun);
-
 const fillLight = new THREE.DirectionalLight(0x5577aa, 0.38);
 fillLight.position.set(-32, 20, 6);
 scene.add(fillLight);
-
 const rimLight = new THREE.DirectionalLight(0xff9944, 0.6);
 rimLight.position.set(0, 14, -35);
 scene.add(rimLight);
 
 // ─── WATER SHADERS ────────────────────────────────────────────────────────────
-const cleanWaterVert = /* glsl */`
-  uniform float time;
-  varying vec2  vUv;
-  varying float vWave;
+const cleanWaterVert = `
+  uniform float time; varying vec2 vUv; varying float vWave;
   void main() {
-    vUv = uv;
-    vec3 p = position;
-    p.y += sin(p.x * 0.22 + time * 1.90) * 0.24
-         + sin(p.z * 0.32 + time * 1.35) * 0.19
-         + sin(p.x * 0.11 + p.z * 0.17 + time * 0.88) * 0.30
-         + sin(p.x * 0.48 - p.z * 0.26 + time * 2.50) * 0.09;
+    vUv = uv; vec3 p = position;
+    p.y += sin(p.x*0.22+time*1.90)*0.24 + sin(p.z*0.32+time*1.35)*0.19
+         + sin(p.x*0.11+p.z*0.17+time*0.88)*0.30 + sin(p.x*0.48-p.z*0.26+time*2.50)*0.09;
     vWave = p.y - position.y;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
   }
 `;
-const cleanWaterFrag = /* glsl */`
-  uniform float time;
-  varying vec2  vUv;
-  varying float vWave;
+const cleanWaterFrag = `
+  uniform float time; varying vec2 vUv; varying float vWave;
   void main() {
-    float d  = 1.0 - vUv.y;
+    float d = 1.0 - vUv.y;
     vec3 col = mix(vec3(0.10,0.76,0.72), vec3(0.04,0.42,0.72), smoothstep(0.0,0.4,d));
-    col      = mix(col, vec3(0.02,0.18,0.52), smoothstep(0.4,1.0,d));
-    float c  = sin(vUv.x*55.0+time*2.4) * sin(vUv.y*42.0-time*1.9);
-    col     += max(0.0,c)*0.09*(1.0-d*0.7);
-    col      = mix(col, vec3(0.94,0.98,1.0), smoothstep(0.10,0.42,vWave)*0.55);
-    col      = mix(col, vec3(0.55,0.92,0.88), (1.0-d)*0.28);
+    col = mix(col, vec3(0.02,0.18,0.52), smoothstep(0.4,1.0,d));
+    float c = sin(vUv.x*55.0+time*2.4)*sin(vUv.y*42.0-time*1.9);
+    col += max(0.0,c)*0.09*(1.0-d*0.7);
+    col = mix(col, vec3(0.94,0.98,1.0), smoothstep(0.10,0.42,vWave)*0.55);
+    col = mix(col, vec3(0.55,0.92,0.88), (1.0-d)*0.28);
     gl_FragColor = vec4(col, mix(0.80,0.96,d));
   }
 `;
-const pollWaterVert = /* glsl */`
-  uniform float time;
-  varying vec2  vUv;
+const pollWaterVert = `
+  uniform float time; varying vec2 vUv;
   void main() {
-    vUv = uv;
-    vec3 p = position;
-    p.y   += sin(p.x*0.18+time*0.75)*0.10 + sin(p.z*0.22+time*0.55)*0.08;
+    vUv = uv; vec3 p = position;
+    p.y += sin(p.x*0.18+time*0.75)*0.10 + sin(p.z*0.22+time*0.55)*0.08;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
   }
 `;
-const pollWaterFrag = /* glsl */`
-  uniform float time;
-  varying vec2  vUv;
+const pollWaterFrag = `
+  uniform float time; varying vec2 vUv;
   void main() {
-    float d   = 1.0 - vUv.y;
-    vec3 col  = mix(vec3(0.10,0.15,0.08), vec3(0.04,0.07,0.04), d*d);
+    float d = 1.0 - vUv.y;
+    vec3 col = mix(vec3(0.10,0.15,0.08), vec3(0.04,0.07,0.04), d*d);
     float oil = (sin(vUv.x*28.0+time*0.45)*0.5+0.5)*(sin(vUv.y*18.0-time*0.28)*0.5+0.5);
     vec3 oilC = mix(vec3(0.28,0.0,0.30), vec3(0.0,0.22,0.12), sin(oil*6.28)*0.5+0.5);
-    col       = mix(col, oilC, oil*0.38);
+    col = mix(col, oilC, oil*0.38);
     gl_FragColor = vec4(col, 0.95);
   }
 `;
-
 function buildWater(vert, frag, segs, cx) {
-  const geo  = new THREE.PlaneGeometry(40, 26, segs[0], segs[1]);
+  const geo = new THREE.PlaneGeometry(40, 26, segs[0], segs[1]);
   geo.rotateX(-Math.PI / 2);
-  const uni  = { time: { value: 0.0 } };
-  const mat  = new THREE.ShaderMaterial({ uniforms: uni, vertexShader: vert, fragmentShader: frag, transparent: true, depthWrite: false });
+  const uni = { time: { value: 0.0 } };
+  const mat = new THREE.ShaderMaterial({ uniforms: uni, vertexShader: vert, fragmentShader: frag, transparent: true, depthWrite: false });
   const mesh = new THREE.Mesh(geo, mat);
   mesh.position.set(cx, 0.04, -8);
   mesh.renderOrder = 1;
@@ -819,33 +855,22 @@ function buildSand(color, cx) {
   const geo = new THREE.PlaneGeometry(40, 24, Q.sandSegs[0], Q.sandSegs[1]);
   geo.rotateX(-Math.PI / 2);
   const pos = geo.attributes.position;
-  for (let i = 0; i < pos.count; i++) {
-    pos.setY(i, pos.getY(i) + (Math.random() - 0.5) * 0.09);
-  }
+  for (let i = 0; i < pos.count; i++) pos.setY(i, pos.getY(i) + (Math.random()-0.5)*0.09);
   geo.computeVertexNormals();
   const mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color, roughness: 0.94 }));
-  mesh.position.set(cx, 0, 11);
-  mesh.receiveShadow = true;
+  mesh.position.set(cx, 0, 11); mesh.receiveShadow = true;
   scene.add(mesh);
 }
 buildSand(0xF0CF8A,  20);
 buildSand(0x7A6245, -20);
 
 // ─── DIVIDER ──────────────────────────────────────────────────────────────────
-const divMesh = new THREE.Mesh(
-  new THREE.BoxGeometry(0.55, 0.9, 50),
-  new THREE.MeshStandardMaterial({ color: 0xf0e8d0, roughness: 0.55, emissive: 0xf5e6c8, emissiveIntensity: 0.12 })
-);
-divMesh.position.set(0, 0.18, 1);
-divMesh.castShadow = true;
-scene.add(divMesh);
-
-const divGlow = new THREE.Mesh(
-  new THREE.BoxGeometry(0.18, 1.0, 50),
-  new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.10 })
-);
-divGlow.position.set(0, 0.18, 1);
-scene.add(divGlow);
+const divM = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.9, 50),
+  new THREE.MeshStandardMaterial({ color: 0xf0e8d0, roughness: 0.55, emissive: 0xf5e6c8, emissiveIntensity: 0.12 }));
+divM.position.set(0, 0.18, 1); divM.castShadow = true; scene.add(divM);
+const divG = new THREE.Mesh(new THREE.BoxGeometry(0.18, 1.0, 50),
+  new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.10 }));
+divG.position.set(0, 0.18, 1); scene.add(divG);
 
 // ─── SHARED MATERIALS ─────────────────────────────────────────────────────────
 const mTrunk  = new THREE.MeshStandardMaterial({ color: 0x4A2E18, roughness: 0.92 });
@@ -875,413 +900,305 @@ const mEye    = new THREE.MeshBasicMaterial({ color: 0x080808 });
 function palmTree(x, z, h, lean) {
   const grp = new THREE.Group();
   for (let s = 0; s < 8; s++) {
-    const r   = 0.30 - s * 0.022;
-    const seg = new THREE.Mesh(new THREE.CylinderGeometry(r * 0.88, r, h / 8, 10), mTrunk);
-    seg.position.set(Math.sin(s / 8 * 0.65) * lean, (s + 0.5) * (h / 8), 0);
-    seg.castShadow = true;
-    grp.add(seg);
+    const r = 0.30 - s*0.022;
+    const seg = new THREE.Mesh(new THREE.CylinderGeometry(r*0.88, r, h/8, 10), mTrunk);
+    seg.position.set(Math.sin(s/8*0.65)*lean, (s+0.5)*(h/8), 0);
+    seg.castShadow = true; grp.add(seg);
   }
-  const tx = Math.sin(0.65) * lean;
+  const tx = Math.sin(0.65)*lean;
   for (let i = 0; i < 10; i++) {
-    const a = (i / 10) * Math.PI * 2 + Math.random() * 0.06;
-    const L = 4.2 + Math.random() * 0.6;
+    const a = (i/10)*Math.PI*2 + Math.random()*0.06;
+    const L = 4.2 + Math.random()*0.6;
     for (let s = 0; s < 4; s++) {
-      const t   = s / 4;
-      const drp = Math.pow(t, 1.9) * 1.4;
-      const lf  = new THREE.Mesh(
-        new THREE.ConeGeometry(0.24 * (1 - t * 0.52), L / 4, 5),
-        s < 2 ? mLeaf : mLeafLt
-      );
-      lf.position.set(
-        tx + Math.cos(a) * (t * L * 0.72 + L / 8),
-        h + 0.4 - drp,
-        Math.sin(a) * (t * L * 0.72 + L / 8)
-      );
-      lf.rotation.set(Math.cos(a) * 1.05 - drp * 0.45, -a, Math.sin(a) * 1.05);
-      lf.castShadow = true;
-      grp.add(lf);
+      const t = s/4; const drp = Math.pow(t,1.9)*1.4;
+      const lf = new THREE.Mesh(new THREE.ConeGeometry(0.24*(1-t*0.52), L/4, 5), s<2 ? mLeaf : mLeafLt);
+      lf.position.set(tx+Math.cos(a)*(t*L*0.72+L/8), h+0.4-drp, Math.sin(a)*(t*L*0.72+L/8));
+      lf.rotation.set(Math.cos(a)*1.05-drp*0.45, -a, Math.sin(a)*1.05);
+      lf.castShadow = true; grp.add(lf);
     }
   }
   for (let i = 0; i < 4; i++) {
-    const a = (i / 4) * Math.PI * 2;
+    const a = (i/4)*Math.PI*2;
     const c = new THREE.Mesh(new THREE.SphereGeometry(0.30, 12, 8), mTrunk);
-    c.position.set(tx + Math.cos(a) * 0.32, h - 0.55, Math.sin(a) * 0.32);
-    grp.add(c);
+    c.position.set(tx+Math.cos(a)*0.32, h-0.55, Math.sin(a)*0.32); grp.add(c);
   }
-  grp.position.set(x, 0, z);
-  return grp;
+  grp.position.set(x, 0, z); return grp;
 }
-
 function makeFish(mat, scale) {
-  const grp  = new THREE.Group();
+  const grp = new THREE.Group();
   const body = new THREE.Mesh(new THREE.SphereGeometry(0.36, 14, 10), mat);
-  body.scale.set(1.72, 0.76, 0.62);
-  grp.add(body);
+  body.scale.set(1.72, 0.76, 0.62); grp.add(body);
   const tail = new THREE.Mesh(new THREE.ConeGeometry(0.24, 0.48, 10), mat);
-  tail.position.set(-0.65, 0, 0);
-  tail.rotation.z = Math.PI / 2;
-  grp.add(tail);
+  tail.position.set(-0.65, 0, 0); tail.rotation.z = Math.PI/2; grp.add(tail);
   const eye = new THREE.Mesh(new THREE.SphereGeometry(0.056, 8, 6), mEye);
-  eye.position.set(0.35, 0.10, 0.20);
-  grp.add(eye);
+  eye.position.set(0.35, 0.10, 0.20); grp.add(eye);
   const fin = new THREE.Mesh(new THREE.ConeGeometry(0.14, 0.22, 5), mat);
-  fin.position.set(0, 0.26, 0);
-  grp.add(fin);
-  grp.scale.setScalar(scale);
-  grp.castShadow = true;
-  return grp;
+  fin.position.set(0, 0.26, 0); grp.add(fin);
+  grp.scale.setScalar(scale); grp.castShadow = true; return grp;
 }
-
 function makeTurtle(sMat, bMat) {
-  const grp   = new THREE.Group();
+  const grp = new THREE.Group();
   const shell = new THREE.Mesh(new THREE.SphereGeometry(1.12, 24, 16), sMat);
-  shell.scale.set(1, 0.48, 1.32);
-  shell.castShadow = true;
-  grp.add(shell);
+  shell.scale.set(1, 0.48, 1.32); shell.castShadow = true; grp.add(shell);
   const scuteColor = sMat.color.clone().offsetHSL(0, 0, 0.07);
-  const scuteMat   = new THREE.MeshStandardMaterial({ color: scuteColor, roughness: 0.72 });
+  const scuteMat = new THREE.MeshStandardMaterial({ color: scuteColor, roughness: 0.72 });
   for (let i = 0; i < 7; i++) {
-    const a  = (i / 7) * Math.PI * 2;
+    const a = (i/7)*Math.PI*2;
     const sc = new THREE.Mesh(new THREE.SphereGeometry(0.25, 8, 6), scuteMat);
-    sc.position.set(Math.cos(a) * 0.54, 0.47, Math.sin(a) * 0.66);
-    sc.scale.y = 0.3;
-    grp.add(sc);
+    sc.position.set(Math.cos(a)*0.54, 0.47, Math.sin(a)*0.66); sc.scale.y = 0.3; grp.add(sc);
   }
   const head = new THREE.Mesh(new THREE.SphereGeometry(0.38, 16, 12), bMat);
-  head.position.set(0, 0.06, 1.38);
-  grp.add(head);
+  head.position.set(0, 0.06, 1.38); grp.add(head);
   const eyeL = new THREE.Mesh(new THREE.SphereGeometry(0.058, 8, 6), mEye);
-  eyeL.position.set(-0.16, 0.20, 1.60);
-  grp.add(eyeL);
+  eyeL.position.set(-0.16, 0.20, 1.60); grp.add(eyeL);
   const eyeR = new THREE.Mesh(new THREE.SphereGeometry(0.058, 8, 6), mEye);
-  eyeR.position.set(0.16, 0.20, 1.60);
-  grp.add(eyeR);
-  [[-0.92,0,0.52],[0.92,0,0.52],[-0.80,0,-0.82],[0.80,0,-0.82]].forEach(([fx, fy, fz]) => {
+  eyeR.position.set(0.16, 0.20, 1.60); grp.add(eyeR);
+  [[-0.92,0,0.52],[0.92,0,0.52],[-0.80,0,-0.82],[0.80,0,-0.82]].forEach(([fx,fy,fz]) => {
     const f = new THREE.Mesh(new THREE.SphereGeometry(0.30, 12, 10), bMat);
-    f.position.set(fx, fy, fz);
-    f.scale.set(1.85, 0.38, 1.0);
-    f.castShadow = true;
-    grp.add(f);
+    f.position.set(fx, fy, fz); f.scale.set(1.85, 0.38, 1.0); f.castShadow = true; grp.add(f);
   });
   return grp;
 }
-
 function makeStarfish(x, z, scale) {
   const grp = new THREE.Group();
   const ctr = new THREE.Mesh(new THREE.SphereGeometry(0.24, 12, 10), mStar);
-  ctr.scale.y = 0.34;
-  grp.add(ctr);
+  ctr.scale.y = 0.34; grp.add(ctr);
   for (let i = 0; i < 5; i++) {
-    const a   = (i / 5) * Math.PI * 2;
+    const a = (i/5)*Math.PI*2;
     const arm = new THREE.Mesh(new THREE.ConeGeometry(0.17, 0.68, 8), mStar);
-    arm.position.set(Math.cos(a) * 0.40, 0, Math.sin(a) * 0.40);
-    arm.rotation.set(0, -a, -Math.PI / 2);
-    arm.scale.y = 0.44;
-    grp.add(arm);
+    arm.position.set(Math.cos(a)*0.40, 0, Math.sin(a)*0.40);
+    arm.rotation.set(0, -a, -Math.PI/2); arm.scale.y = 0.44; grp.add(arm);
   }
-  grp.position.set(x, 0.22, z);
-  grp.scale.setScalar(scale);
-  return grp;
+  grp.position.set(x, 0.22, z); grp.scale.setScalar(scale); return grp;
 }
-
 function makeSeagull() {
   const grp = new THREE.Group();
-  const bd  = new THREE.Mesh(new THREE.SphereGeometry(0.16, 10, 8), mBird);
-  bd.scale.set(1.6, 0.55, 0.5);
-  grp.add(bd);
+  const bd = new THREE.Mesh(new THREE.SphereGeometry(0.16, 10, 8), mBird);
+  bd.scale.set(1.6, 0.55, 0.5); grp.add(bd);
   const wMat = new THREE.MeshStandardMaterial({ color: 0xf8f8fa, side: THREE.DoubleSide, roughness: 0.38 });
-  const wL   = new THREE.Mesh(new THREE.PlaneGeometry(0.70, 0.20), wMat);
-  wL.position.set(0, 0, 0.30); wL.rotation.x = -Math.PI / 2;
-  grp.add(wL);
+  const wL = new THREE.Mesh(new THREE.PlaneGeometry(0.70, 0.20), wMat);
+  wL.position.set(0,0,0.30); wL.rotation.x = -Math.PI/2; grp.add(wL);
   const wR = new THREE.Mesh(new THREE.PlaneGeometry(0.70, 0.20), wMat);
-  wR.position.set(0, 0, -0.30); wR.rotation.x = -Math.PI / 2;
-  grp.add(wR);
-  grp.userData.wL     = wL;
-  grp.userData.wR     = wR;
-  grp.userData.offset = Math.random() * Math.PI * 2;
+  wR.position.set(0,0,-0.30); wR.rotation.x = -Math.PI/2; grp.add(wR);
+  grp.userData.wL = wL; grp.userData.wR = wR;
+  grp.userData.offset = Math.random()*Math.PI*2;
   return grp;
 }
 
 // ─── CLEAN SIDE ───────────────────────────────────────────────────────────────
-[
-  [ 4, 16,  9.5,  0.40], [10, 15, 10.5, -0.28], [17, 17,  9.8,  0.18],
-  [24, 15.5, 10, -0.32], [31, 16.5, 9.2,  0.38], [ 7, 18.5, 8.8, -0.20],
-  [20, 18,  11.0,  0.25], [28, 17,   9.0, -0.15],
-].forEach(([x, z, h, l]) => scene.add(palmTree(x, z, h, l)));
+[[4,16,9.5,0.40],[10,15,10.5,-0.28],[17,17,9.8,0.18],[24,15.5,10,-0.32],
+ [31,16.5,9.2,0.38],[7,18.5,8.8,-0.20],[20,18,11.0,0.25],[28,17,9.0,-0.15]
+].forEach(([x,z,h,l]) => scene.add(palmTree(x,z,h,l)));
 
 for (let i = 0; i < 12; i++) {
-  const r = new THREE.Mesh(new THREE.DodecahedronGeometry(0.45 + Math.random() * 0.55, 0), mRock);
-  r.position.set(2 + Math.random() * 36, 0.38, 18 + Math.random() * 4 - (i % 3 === 0 ? 8 : 0));
-  r.rotation.set(Math.random(), Math.random(), Math.random());
-  r.scale.y = 0.55; r.castShadow = true; r.receiveShadow = true;
-  scene.add(r);
+  const r = new THREE.Mesh(new THREE.DodecahedronGeometry(0.45+Math.random()*0.55, 0), mRock);
+  r.position.set(2+Math.random()*36, 0.38, 18+Math.random()*4-(i%3===0?8:0));
+  r.rotation.set(Math.random(),Math.random(),Math.random());
+  r.scale.y = 0.55; r.castShadow = r.receiveShadow = true; scene.add(r);
 }
 for (let i = 0; i < 10; i++) {
   const s = new THREE.Mesh(new THREE.SphereGeometry(0.24, 16, 12, 0, Math.PI), mShell);
-  s.position.set(3 + Math.random() * 35, 0.24, 4 + Math.random() * 14);
-  s.rotation.set(-Math.PI / 2, 0, Math.random() * Math.PI);
-  s.scale.set(1, 1, 0.55); s.castShadow = true;
-  scene.add(s);
+  s.position.set(3+Math.random()*35, 0.24, 4+Math.random()*14);
+  s.rotation.set(-Math.PI/2, 0, Math.random()*Math.PI);
+  s.scale.set(1, 1, 0.55); s.castShadow = true; scene.add(s);
 }
 scene.add(makeStarfish(16, 3, 1.7));
 scene.add(makeStarfish(24, 6, 1.4));
 scene.add(makeStarfish(32, 2, 1.9));
 
 const happyTurtle = makeTurtle(mTShell, mTBody);
-happyTurtle.position.set(9, 0.62, -2);
-happyTurtle.rotation.y = -0.45;
+happyTurtle.position.set(9, 0.62, -2); happyTurtle.rotation.y = -0.45;
 scene.add(happyTurtle);
 
-const fishGroup  = new THREE.Group();
+const fishGroup = new THREE.Group();
 const fishMeshes = [];
 [[mFishO,1.1],[mFishB,0.92],[mFishO,1.0],[mFishB,1.18],
  [mFishT,0.87],[mFishO,0.96],[mFishB,1.06],[mFishT,1.12],
  [mFishO,0.90],[mFishB,0.82],[mFishT,1.02],[mFishO,1.14]
-].forEach(([mat, s], i) => {
+].forEach(([mat,s],i) => {
   const f = makeFish(mat, s);
-  const a = (i / 12) * Math.PI * 2;
-  const r = 2.8 + (i % 4) * 1.2;
-  f.position.set(Math.cos(a) * r, 0.36 + Math.random() * 0.28, Math.sin(a) * r - 6);
-  f.userData.baseA  = a;
-  f.userData.radius = r;
-  f.userData.baseY  = f.position.y;
-  f.userData.speed  = 0.22 + Math.random() * 0.09;
-  fishGroup.add(f);
-  fishMeshes.push(f);
+  const a = (i/12)*Math.PI*2; const r = 2.8+(i%4)*1.2;
+  f.position.set(Math.cos(a)*r, 0.36+Math.random()*0.28, Math.sin(a)*r-6);
+  f.userData.baseA = a; f.userData.radius = r;
+  f.userData.baseY = f.position.y; f.userData.speed = 0.22+Math.random()*0.09;
+  fishGroup.add(f); fishMeshes.push(f);
 });
-fishGroup.position.set(20, 0, 0);
-scene.add(fishGroup);
+fishGroup.position.set(20, 0, 0); scene.add(fishGroup);
 
 const birds = [];
-[[10,12,2],[18,14,-3],[26,13,1],[14,15,4]].forEach(([x, y, z]) => {
+[[10,12,2],[18,14,-3],[26,13,1],[14,15,4]].forEach(([x,y,z]) => {
   const b = makeSeagull();
-  b.position.set(x, y, z);
-  b.userData.baseY    = y;
-  b.userData.orbitA   = Math.random() * Math.PI * 2;
-  b.userData.orbitR   = 7 + Math.random() * 5;
-  b.userData.orbitSpd = 0.13 + Math.random() * 0.09;
-  birds.push(b);
-  scene.add(b);
+  b.position.set(x, y, z); b.userData.baseY = y;
+  b.userData.orbitA = Math.random()*Math.PI*2;
+  b.userData.orbitR = 7+Math.random()*5;
+  b.userData.orbitSpd = 0.13+Math.random()*0.09;
+  birds.push(b); scene.add(b);
 });
 
-const sunCore = new THREE.Mesh(new THREE.SphereGeometry(1.5, 24, 18), new THREE.MeshBasicMaterial({ color: 0xfffce8 }));
-sunCore.position.set(28, 18, -20);
-scene.add(sunCore);
-const sunGl1 = new THREE.Mesh(new THREE.SphereGeometry(2.4, 24, 18), new THREE.MeshBasicMaterial({ color: 0xffd060, transparent: true, opacity: 0.34 }));
-sunGl1.position.copy(sunCore.position);
-scene.add(sunGl1);
-const sunGl2 = new THREE.Mesh(new THREE.SphereGeometry(3.6, 24, 18), new THREE.MeshBasicMaterial({ color: 0xff9020, transparent: true, opacity: 0.11 }));
-sunGl2.position.copy(sunCore.position);
-scene.add(sunGl2);
+const sunCore = new THREE.Mesh(new THREE.SphereGeometry(1.5,24,18), new THREE.MeshBasicMaterial({ color: 0xfffce8 }));
+sunCore.position.set(28,18,-20); scene.add(sunCore);
+const sunGl1 = new THREE.Mesh(new THREE.SphereGeometry(2.4,24,18), new THREE.MeshBasicMaterial({ color: 0xffd060, transparent:true, opacity:0.34 }));
+sunGl1.position.copy(sunCore.position); scene.add(sunGl1);
+const sunGl2 = new THREE.Mesh(new THREE.SphereGeometry(3.6,24,18), new THREE.MeshBasicMaterial({ color: 0xff9020, transparent:true, opacity:0.11 }));
+sunGl2.position.copy(sunCore.position); scene.add(sunGl2);
 
 const bubbles = [];
 for (let i = 0; i < 24; i++) {
-  const b = new THREE.Mesh(
-    new THREE.SphereGeometry(0.07 + Math.random() * 0.08, 8, 6),
-    new THREE.MeshPhysicalMaterial({ color: 0xffffff, transparent: true, opacity: 0.42, transmission: 0.6, roughness: 0.05 })
-  );
-  b.position.set(4 + Math.random() * 34, 0.3, -18 + Math.random() * 14);
-  b.userData.spd = 0.007 + Math.random() * 0.008;
-  b.userData.off = Math.random() * Math.PI * 2;
-  bubbles.push(b);
-  scene.add(b);
+  const b = new THREE.Mesh(new THREE.SphereGeometry(0.07+Math.random()*0.08, 8, 6),
+    new THREE.MeshPhysicalMaterial({ color:0xffffff, transparent:true, opacity:0.42, transmission:0.6, roughness:0.05 }));
+  b.position.set(4+Math.random()*34, 0.3, -18+Math.random()*14);
+  b.userData.spd = 0.007+Math.random()*0.008;
+  b.userData.off = Math.random()*Math.PI*2;
+  bubbles.push(b); scene.add(b);
 }
-
 const cldMat = new THREE.MeshStandardMaterial({ color: 0xfafafa, roughness: 0.92 });
-const clouds  = [];
-[[8,12,-12],[20,14,-8],[30,13,-16],[15,15,0]].forEach(([x, y, z]) => {
+const clouds = [];
+[[8,12,-12],[20,14,-8],[30,13,-16],[15,15,0]].forEach(([x,y,z]) => {
   const grp = new THREE.Group();
   for (let i = 0; i < 7; i++) {
-    const c = new THREE.Mesh(new THREE.SphereGeometry(0.9 + Math.random() * 0.5, 12, 8), cldMat);
-    c.position.set(i * 0.85 - 2.1, Math.sin(i * 0.9) * 0.22, 0);
-    grp.add(c);
+    const c = new THREE.Mesh(new THREE.SphereGeometry(0.9+Math.random()*0.5, 12, 8), cldMat);
+    c.position.set(i*0.85-2.1, Math.sin(i*0.9)*0.22, 0); grp.add(c);
   }
-  grp.position.set(x, y, z);
-  grp.userData.baseX = x;
-  clouds.push(grp);
-  scene.add(grp);
+  grp.position.set(x,y,z); grp.userData.baseX = x;
+  clouds.push(grp); scene.add(grp);
 });
 
 // ─── POLLUTED SIDE ────────────────────────────────────────────────────────────
 for (let i = 0; i < 22; i++) {
-  const oil = new THREE.Mesh(new THREE.CircleGeometry(1.8 + Math.random() * 3.0, 22), mOil);
-  oil.rotation.x = -Math.PI / 2;
-  oil.position.set(-3 - Math.random() * 34, 0.13, -5 - Math.random() * 18);
-  oil.scale.x = 1 + Math.random() * 0.9;
-  scene.add(oil);
+  const oil = new THREE.Mesh(new THREE.CircleGeometry(1.8+Math.random()*3.0, 22), mOil);
+  oil.rotation.x = -Math.PI/2;
+  oil.position.set(-3-Math.random()*34, 0.13, -5-Math.random()*18);
+  oil.scale.x = 1+Math.random()*0.9; scene.add(oil);
 }
-
 const plasticMats = [mPlasB, mPlasW, mPlasR, mPlasB, mPlasW, mPlasR];
 function makeBottle(x, z, mat) {
-  const grp  = new THREE.Group();
-  const body = new THREE.Mesh(new THREE.CylinderGeometry(0.30, 0.30, 1.15, 16), mat);
-  body.castShadow = true;
-  grp.add(body);
-  const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.30, 0.24, 14), mat);
-  neck.position.set(0, 0.69, 0);
-  grp.add(neck);
-  const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.17, 0.17, 0.20, 14), mPlasR);
-  cap.position.set(0, 0.88, 0);
-  grp.add(cap);
-  grp.position.set(x, 0.26, z);
-  grp.rotation.set(Math.PI / 2, 0, Math.random() * Math.PI * 2);
+  const grp = new THREE.Group();
+  const body = new THREE.Mesh(new THREE.CylinderGeometry(0.30,0.30,1.15,16), mat);
+  body.castShadow = true; grp.add(body);
+  const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.16,0.30,0.24,14), mat);
+  neck.position.set(0,0.69,0); grp.add(neck);
+  const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.17,0.17,0.20,14), mPlasR);
+  cap.position.set(0,0.88,0); grp.add(cap);
+  grp.position.set(x,0.26,z); grp.rotation.set(Math.PI/2,0,Math.random()*Math.PI*2);
   return grp;
 }
 [[-5,8],[-11,4],[-18,9],[-6,-4],[-23,-6],[-9,-9],
  [-28,5],[-15,-13],[-33,3],[-7,13],[-25,11],[-19,-7],
  [-31,-11],[-13,6],[-36,-3]
-].forEach(([x, z], i) => scene.add(makeBottle(x, z, plasticMats[i % 6])));
+].forEach(([x,z],i) => scene.add(makeBottle(x,z,plasticMats[i%6])));
 
 const trashParticles = [];
 for (let i = 0; i < 45; i++) {
-  const p = new THREE.Mesh(
-    new THREE.BoxGeometry(0.20, 0.05, 0.20),
-    new THREE.MeshStandardMaterial({ color: Math.random() > 0.5 ? 0xdddddd : 0xcc4444, roughness: 0.52 })
-  );
-  p.position.set(-3 - Math.random() * 35, 0.14, -2 - Math.random() * 22);
-  p.rotation.y  = Math.random() * Math.PI;
-  p.userData.dx = (Math.random() - 0.5) * 0.009;
-  p.userData.dz = (Math.random() - 0.5) * 0.007;
-  trashParticles.push(p);
-  scene.add(p);
+  const p = new THREE.Mesh(new THREE.BoxGeometry(0.20,0.05,0.20),
+    new THREE.MeshStandardMaterial({ color: Math.random()>0.5?0xdddddd:0xcc4444, roughness:0.52 }));
+  p.position.set(-3-Math.random()*35, 0.14, -2-Math.random()*22);
+  p.rotation.y = Math.random()*Math.PI;
+  p.userData.dx = (Math.random()-0.5)*0.009;
+  p.userData.dz = (Math.random()-0.5)*0.007;
+  trashParticles.push(p); scene.add(p);
 }
 for (let i = 0; i < 12; i++) {
-  const can = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.32, 0.85, 16), i % 2 === 0 ? mCan : mPlasR);
-  can.position.set(-3 - Math.random() * 32, 0.30, 2 + Math.random() * 20);
-  can.rotation.set(Math.PI / 2, 0, Math.random() * Math.PI);
-  can.castShadow = true;
-  scene.add(can);
+  const can = new THREE.Mesh(new THREE.CylinderGeometry(0.32,0.32,0.85,16), i%2===0?mCan:mPlasR);
+  can.position.set(-3-Math.random()*32, 0.30, 2+Math.random()*20);
+  can.rotation.set(Math.PI/2,0,Math.random()*Math.PI); can.castShadow = true; scene.add(can);
 }
-
 const sickTurtle = makeTurtle(mTSick, mTSickB);
-sickTurtle.position.set(-12, 0.62, 5);
-sickTurtle.rotation.y = 0.45;
-scene.add(sickTurtle);
+sickTurtle.position.set(-12, 0.62, 5); sickTurtle.rotation.y = 0.45; scene.add(sickTurtle);
+const ring = new THREE.Mesh(new THREE.TorusGeometry(0.30,0.066,8,24), mPlasW);
+ring.position.set(-12,0.92,6.42); ring.rotation.x = Math.PI/2; scene.add(ring);
 
-const ring = new THREE.Mesh(new THREE.TorusGeometry(0.30, 0.066, 8, 24), mPlasW);
-ring.position.set(-12, 0.92, 6.42);
-ring.rotation.x = Math.PI / 2;
-scene.add(ring);
-
-[[-14,-8],[-23,-6],[-31,-13],[-9,-15],[-18,-3]].forEach(([x, z]) => {
-  const df = new THREE.Mesh(new THREE.SphereGeometry(0.40, 12, 10), mFishD);
-  df.scale.set(1.85, 0.55, 0.55);
-  df.position.set(x, 0.22, z);
-  df.rotation.z = Math.PI;
-  scene.add(df);
-  const dt = new THREE.Mesh(new THREE.ConeGeometry(0.26, 0.52, 10), mFishD);
-  dt.position.set(x - 0.76, 0.22, z);
-  dt.rotation.z = Math.PI / 2;
-  scene.add(dt);
+[[-14,-8],[-23,-6],[-31,-13],[-9,-15],[-18,-3]].forEach(([x,z]) => {
+  const df = new THREE.Mesh(new THREE.SphereGeometry(0.40,12,10), mFishD);
+  df.scale.set(1.85,0.55,0.55); df.position.set(x,0.22,z); df.rotation.z = Math.PI; scene.add(df);
+  const dt = new THREE.Mesh(new THREE.ConeGeometry(0.26,0.52,10), mFishD);
+  dt.position.set(x-0.76,0.22,z); dt.rotation.z = Math.PI/2; scene.add(dt);
 });
-
-const net = new THREE.Mesh(
-  new THREE.PlaneGeometry(6.5, 5.0, 14, 10),
-  new THREE.MeshStandardMaterial({ color: 0x445533, roughness: 0.9, transparent: true, opacity: 0.62, wireframe: true })
-);
-net.rotation.x = -Math.PI / 2 + 0.28;
-net.rotation.z = 0.55;
-net.position.set(-22, 0.16, -5);
-scene.add(net);
+const net = new THREE.Mesh(new THREE.PlaneGeometry(6.5,5.0,14,10),
+  new THREE.MeshStandardMaterial({ color:0x445533, roughness:0.9, transparent:true, opacity:0.62, wireframe:true }));
+net.rotation.x = -Math.PI/2+0.28; net.rotation.z = 0.55; net.position.set(-22,0.16,-5); scene.add(net);
 
 const smokeParticles = [];
 for (let i = 0; i < 16; i++) {
-  const s = new THREE.Mesh(new THREE.SphereGeometry(1.4 + Math.random() * 0.9, 12, 8), mSmoke);
-  s.position.set(-6 - Math.random() * 30, 6.5 + Math.random() * 5, -3 + Math.random() * 12);
-  s.userData.baseX = s.position.x;
-  s.userData.off   = Math.random() * Math.PI * 2;
-  smokeParticles.push(s);
-  scene.add(s);
+  const s = new THREE.Mesh(new THREE.SphereGeometry(1.4+Math.random()*0.9, 12, 8), mSmoke);
+  s.position.set(-6-Math.random()*30, 6.5+Math.random()*5, -3+Math.random()*12);
+  s.userData.baseX = s.position.x; s.userData.off = Math.random()*Math.PI*2;
+  smokeParticles.push(s); scene.add(s);
 }
-
-const dkCldMat = new THREE.MeshStandardMaterial({ color: 0x2e2e34, roughness: 1.0, transparent: true, opacity: 0.72 });
+const dkCldMat = new THREE.MeshStandardMaterial({ color:0x2e2e34, roughness:1.0, transparent:true, opacity:0.72 });
 const darkClouds = [];
-[[-8,14,-6],[-18,16,2],[-28,15,-10],[-14,12,-16]].forEach(([x, y, z]) => {
+[[-8,14,-6],[-18,16,2],[-28,15,-10],[-14,12,-16]].forEach(([x,y,z]) => {
   const grp = new THREE.Group();
   for (let i = 0; i < 7; i++) {
-    const c = new THREE.Mesh(new THREE.SphereGeometry(1.1 + Math.random() * 0.55, 12, 8), dkCldMat);
-    c.position.set(i * 0.90 - 2.2, Math.sin(i * 0.9) * 0.25, 0);
-    grp.add(c);
+    const c = new THREE.Mesh(new THREE.SphereGeometry(1.1+Math.random()*0.55, 12, 8), dkCldMat);
+    c.position.set(i*0.90-2.2, Math.sin(i*0.9)*0.25, 0); grp.add(c);
   }
-  grp.position.set(x, y, z);
-  grp.userData.baseX = x;
-  darkClouds.push(grp);
-  scene.add(grp);
+  grp.position.set(x,y,z); grp.userData.baseX = x;
+  darkClouds.push(grp); scene.add(grp);
 });
 
 // ─── ANIMATION LOOP ───────────────────────────────────────────────────────────
-let autoRotate     = true;
-controls.autoRotate      = true;
+let autoRotate = true;
+controls.autoRotate = true;
 controls.autoRotateSpeed = 0.32;
 
 const btn = document.getElementById('rotateBtn');
 btn.addEventListener('click', () => {
-  autoRotate      = !autoRotate;
+  autoRotate = !autoRotate;
   btn.textContent = autoRotate ? 'AUTO-ROTATE' : 'PAUSED';
 });
 
 const clock = new THREE.Clock();
-
 function animate() {
   requestAnimationFrame(animate);
   const t = clock.getElapsedTime();
-
   controls.autoRotate = autoRotate;
   controls.update();
-
   CWU.time.value = t;
   PWU.time.value = t;
 
   fishMeshes.forEach((f, i) => {
-    const a      = f.userData.baseA + t * f.userData.speed;
-    const r      = f.userData.radius;
+    const a = f.userData.baseA + t * f.userData.speed;
+    const r = f.userData.radius;
     f.position.x = Math.cos(a) * r;
     f.position.z = Math.sin(a) * r - 6;
-    f.position.y = f.userData.baseY + Math.sin(t * 2.6 + i) * 0.09;
-    f.rotation.y = -a + Math.PI / 2;
-    if (f.children[1]) f.children[1].rotation.y = Math.sin(t * 12 + i * 0.8) * 0.06;
+    f.position.y = f.userData.baseY + Math.sin(t*2.6+i)*0.09;
+    f.rotation.y = -a + Math.PI/2;
+    if (f.children[1]) f.children[1].rotation.y = Math.sin(t*12+i*0.8)*0.06;
   });
-
-  happyTurtle.position.y = 0.62 + Math.sin(t * 1.08) * 0.09;
-  happyTurtle.rotation.z = Math.sin(t * 0.72) * 0.07;
-  sickTurtle.rotation.z  = Math.sin(t * 0.32) * 0.026;
+  happyTurtle.position.y = 0.62 + Math.sin(t*1.08)*0.09;
+  happyTurtle.rotation.z = Math.sin(t*0.72)*0.07;
+  sickTurtle.rotation.z  = Math.sin(t*0.32)*0.026;
 
   birds.forEach((b, i) => {
     b.userData.orbitA += b.userData.orbitSpd * 0.016;
     const a = b.userData.orbitA;
-    b.position.x = 15 + Math.cos(a) * b.userData.orbitR;
-    b.position.z =      Math.sin(a) * b.userData.orbitR;
-    b.position.y = b.userData.baseY + Math.sin(t * 1.4 + i) * 0.32;
-    b.rotation.y = a + Math.PI / 2;
-    b.userData.wL.rotation.y =  Math.sin(t * 9.5 + b.userData.offset) * 0.72;
-    b.userData.wR.rotation.y = -Math.sin(t * 9.5 + b.userData.offset) * 0.72;
+    b.position.x = 15 + Math.cos(a)*b.userData.orbitR;
+    b.position.z =      Math.sin(a)*b.userData.orbitR;
+    b.position.y = b.userData.baseY + Math.sin(t*1.4+i)*0.32;
+    b.rotation.y = a + Math.PI/2;
+    b.userData.wL.rotation.y =  Math.sin(t*9.5+b.userData.offset)*0.72;
+    b.userData.wR.rotation.y = -Math.sin(t*9.5+b.userData.offset)*0.72;
   });
 
-  clouds.forEach((c, i)     => { c.position.x = c.userData.baseX + Math.sin(t * 0.07 + i)       * 1.0; });
-  darkClouds.forEach((c, i) => { c.position.x = c.userData.baseX + Math.sin(t * 0.04 + i * 1.5) * 0.6; });
-
+  clouds.forEach((c,i)     => { c.position.x = c.userData.baseX + Math.sin(t*0.07+i)*1.0; });
+  darkClouds.forEach((c,i) => { c.position.x = c.userData.baseX + Math.sin(t*0.04+i*1.5)*0.6; });
   smokeParticles.forEach(s => {
-    s.position.x  = s.userData.baseX + Math.sin(t * 0.22 + s.userData.off) * 0.6;
+    s.position.x  = s.userData.baseX + Math.sin(t*0.22+s.userData.off)*0.6;
     s.position.y += 0.0025;
     if (s.position.y > 15) s.position.y = 5;
   });
-
   trashParticles.forEach(p => {
-    p.position.x += p.userData.dx;
-    p.position.z += p.userData.dz;
-    p.rotation.y += 0.005;
+    p.position.x += p.userData.dx; p.position.z += p.userData.dz; p.rotation.y += 0.005;
     if (p.position.x > -1.5 || p.position.x < -38) p.userData.dx *= -1;
     if (p.position.z >  0   || p.position.z < -24) p.userData.dz *= -1;
   });
-
   bubbles.forEach(b => {
     b.position.y += b.userData.spd;
-    b.position.x += Math.sin(t * 2.1 + b.userData.off) * 0.0028;
+    b.position.x += Math.sin(t*2.1+b.userData.off)*0.0028;
     if (b.position.y > 2.0) b.position.y = 0.12;
   });
-
-  sunGl1.scale.setScalar(1 + Math.sin(t * 1.9) * 0.055);
-  sunGl2.scale.setScalar(1 + Math.sin(t * 1.3) * 0.10);
+  sunGl1.scale.setScalar(1 + Math.sin(t*1.9)*0.055);
+  sunGl2.scale.setScalar(1 + Math.sin(t*1.3)*0.10);
 
   doRender();
 }
@@ -1289,8 +1206,7 @@ animate();
 
 // ─── RESIZE ───────────────────────────────────────────────────────────────────
 window.addEventListener('resize', () => {
-  const w = canvasContainer.clientWidth;
-  const h = canvasContainer.clientHeight;
+  const w = cc.clientWidth, h = cc.clientHeight;
   if (!w || !h) return;
   camera.aspect = w / h;
   camera.updateProjectionMatrix();
@@ -1301,14 +1217,11 @@ window.addEventListener('resize', () => {
 // ════════════════════════════════════════════════════════════════════════════════
 //  WEBSITE JS
 // ════════════════════════════════════════════════════════════════════════════════
-
-// Nav: go solid on scroll
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('solid', window.scrollY > 60);
 }, { passive: true });
 
-// Reveal animations
 const revObs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
 }, { threshold: 0.10 });
