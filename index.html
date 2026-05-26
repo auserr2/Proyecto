@@ -215,23 +215,15 @@ img { display: block; }
    FULLWIDTH BAND (wildlife/impact)
 ═══════════════════════════════════════════════════════════════════════════════ */
 .band {
-  position: relative;
-  height: 60vh; min-height: 400px;
-  overflow: hidden;
-  background: #020c1e;
-}
-.band img {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%; object-fit: cover;
-  filter: brightness(0.48) saturate(1.05);
+  padding: 96px 40px;
+  background: linear-gradient(160deg, #010b1e 0%, #021830 55%, #010d1e 100%);
+  border-top: 1px solid rgba(13,212,240,0.08);
+  border-bottom: 1px solid rgba(13,212,240,0.08);
+  display: flex; align-items: center; justify-content: center;
 }
 .band-text {
-  position: absolute; inset: 0;
   display: flex; align-items: center; justify-content: center;
-  padding: 40px;
-  background:
-    linear-gradient(to top, rgba(1,9,18,0.85) 0%, transparent 50%),
-    linear-gradient(to bottom, rgba(1,9,18,0.35) 0%, transparent 40%);
+  width: 100%; padding: 0; background: none;
 }
 .band-quote {
   max-width: 700px; text-align: center;
@@ -451,8 +443,8 @@ footer {
     <p class="hero-loc">Los Ángeles, California</p>
     <h1 class="hero-title">Salva<br><em>el Mar</em></h1>
     <p class="hero-sub">
-      La contaminación afecta las playas de Los Ángeles.
-      Podemos proteger el océano juntos.
+      La contaminación afecta el mar de Los Ángeles.
+      Podemos proteger la playa.
     </p>
     <a href="#problema" class="hero-cta">Ver el problema</a>
   </div>
@@ -474,8 +466,8 @@ footer {
     <h2 class="headline reveal d1">El Mar Está<br>en Peligro</h2>
     <p class="body-lead reveal d2">
       La playa <em>estaba</em> limpia. La contaminación
-      <em>llegó</em> al océano <strong>por las fábricas</strong>
-      y el plástico. Ahora el medio ambiente está en peligro.
+      <em>llegó</em> al mar <strong>por las fábricas</strong>
+      y el plástico. Ahora el agua está sucia y los animales están en peligro.
     </p>
 
     <div class="stats-row">
@@ -516,22 +508,17 @@ footer {
 </section>
 
 <!-- ════════════════════════════════════════════════════════════════════════════
-     FULLWIDTH BAND — wildlife impact
+     BAND — wildlife impact (CSS only — no unverified photo)
 ════════════════════════════════════════════════════════════════════════════════ -->
 <div class="band">
-  <img
-    src="https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?w=1920&q=80"
-    alt="Tortuga marina en el océano"
-    onerror="this.style.display='none'"
-  >
   <div class="band-text">
     <div class="band-quote reveal">
       <p>
-        Muchas tortugas <em>murieron</em>
+        Las tortugas <em>murieron</em>
         <span class="hl">por el plástico</span>
-        en el océano de Los Ángeles.
+        en el mar.
         Los peces <em>vivían</em> en agua limpia —
-        ahora el mar está contaminado.
+        ahora el agua está contaminada.
       </p>
     </div>
   </div>
@@ -545,8 +532,8 @@ footer {
     <span class="eyebrow reveal">Arte Interactivo</span>
     <h2 class="headline reveal d1">Mira la Diferencia</h2>
     <p class="body-lead reveal d2">
-      A la izquierda: el océano contaminado.<br>
-      A la derecha: el océano limpio.<br>
+      A la izquierda: el mar contaminado.<br>
+      A la derecha: el mar limpio.<br>
       Arrastra para explorar los dos lados.
     </p>
   </div>
@@ -572,9 +559,9 @@ footer {
     <h2 class="headline reveal d1">La Solución</h2>
     <p class="body-lead reveal d2">
       Las playas <em>serán</em> más limpias.
-      Los animales <em>vivirán</em> mejor.
-      Todos <em>ayudaremos</em> a mejorar el mar —
-      la naturaleza <em>mejorará</em> con tu ayuda.
+      Los peces y las tortugas <em>vivirán</em> mejor.
+      Todos <em>ayudaremos</em> a limpiar el mar.
+      La naturaleza <em>mejorará</em>.
     </p>
 
     <div class="sol-layout">
@@ -597,7 +584,7 @@ footer {
           <span class="step-n">2</span>
           <p class="step-t">
             Queremos que el gobierno <em>proteja</em>
-            el océano con nuevas leyes de conservación.
+            el mar con nuevas leyes.
           </p>
         </div>
         <div class="step reveal d3">
@@ -610,8 +597,8 @@ footer {
         <div class="step reveal d4">
           <span class="step-n">4</span>
           <p class="step-t">
-            Reciclamos <strong>para conservar</strong>
-            el medio ambiente y proteger a los animales del mar.
+            Reciclamos <strong>para proteger</strong>
+            a los peces y las tortugas del mar.
           </p>
         </div>
       </div>
@@ -641,11 +628,11 @@ footer {
         <p class="cmd-text">¡Recicla las latas!</p>
         <p class="cmd-desc">
           Separa el plástico y las latas en casa.
-          Hazlo <em>para</em> los animales del océano.
+          Hazlo <em>para</em> los animales del mar.
         </p>
       </div>
       <div class="cmd yes reveal d2">
-        <p class="cmd-text">¡Protege el océano!</p>
+        <p class="cmd-text">¡Protege el mar!</p>
         <p class="cmd-desc">
           Únete a una limpieza de playa en Malibu
           o Santa Mónica este fin de semana.
@@ -655,14 +642,14 @@ footer {
         <p class="cmd-text">¡No tires plástico!</p>
         <p class="cmd-desc">
           No tires plástico en la playa ni en el río.
-          La basura llega al océano y destruye la naturaleza.
+          La basura llega al mar y afecta a los animales.
         </p>
       </div>
       <div class="cmd no reveal d4">
         <p class="cmd-text">¡No contamines el agua!</p>
         <p class="cmd-desc">
-          Evita contaminar los ríos y el lago.
-          El agua limpia es esencial <em>para</em> el medio ambiente.
+          No tires basura en el río ni en el lago.
+          El agua limpia es importante <em>para</em> los animales.
         </p>
       </div>
     </div>
