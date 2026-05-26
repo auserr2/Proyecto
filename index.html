@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<meta name="theme-color" content="#050f22">
+<meta name="theme-color" content="#020c1e">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Nuestro Océano — La Contaminación y las Soluciones</title>
@@ -11,613 +11,624 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-/* ── RESET ──────────────────────────────────────────────────────────────────── */
+
+/* ── RESET + BASE ───────────────────────────────────────────────────────────── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-/* ── BASE ───────────────────────────────────────────────────────────────────── */
-html { scroll-behavior: smooth; background: #050f22; }
+html { scroll-behavior: smooth; }
 body {
-  overflow-x: hidden;
+  background: #020c1e;
   font-family: 'Inter', -apple-system, 'Helvetica Neue', sans-serif;
-  color: #e8edf5;
+  color: #dde8f5;
   line-height: 1.6;
-}
-
-/* ── FIXED BACKGROUND LAYER ─────────────────────────────────────────────────── */
-#scene { position: fixed; inset: 0; z-index: 0; }
-.vignette {
-  position: fixed; inset: 0; pointer-events: none; z-index: 1;
-  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.60) 100%);
+  overflow-x: hidden;
 }
 
 /* ── NAV ────────────────────────────────────────────────────────────────────── */
 #nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 40;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
   padding: 20px 48px;
-  transition: background 0.45s ease, box-shadow 0.45s ease;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
 }
 #nav.solid {
-  background: rgba(5,15,34,0.90);
-  backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
-  box-shadow: 0 1px 0 rgba(255,255,255,0.06);
+  background: rgba(2,12,30,0.92);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.07);
 }
 .nav-logo {
   font-family: 'Playfair Display', serif;
-  font-size: 17px; font-weight: 700; letter-spacing: 0.3px;
-  color: #fff; text-decoration: none;
+  font-size: 17px; font-weight: 700;
+  color: #fff; text-decoration: none; letter-spacing: 0.2px;
 }
-.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links { display: flex; gap: 34px; list-style: none; }
 .nav-links a {
   font-size: 11px; font-weight: 500;
   letter-spacing: 2.5px; text-transform: uppercase;
-  color: rgba(255,255,255,0.65); text-decoration: none;
+  color: rgba(255,255,255,0.60); text-decoration: none;
   transition: color 0.2s;
 }
 .nav-links a:hover { color: #fff; }
 
-/* ── ROTATE BUTTON ──────────────────────────────────────────────────────────── */
-#rotateBtn {
-  position: fixed;
-  bottom: max(28px, env(safe-area-inset-bottom, 28px));
-  left: 50%; transform: translateX(-50%);
-  z-index: 50;
-  background: rgba(0,0,0,0.40);
-  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
-  padding: 12px 36px; border-radius: 40px;
-  border: 1px solid rgba(255,255,255,0.14);
-  color: rgba(255,255,255,0.78); cursor: pointer;
-  font-family: 'Inter', sans-serif;
-  font-size: 11px; font-weight: 500; letter-spacing: 3.5px; text-transform: uppercase;
-  transition: background 0.3s, border-color 0.3s, color 0.3s,
-              opacity 0.4s ease, transform 0.4s ease;
-  white-space: nowrap; -webkit-tap-highlight-color: transparent;
-  min-width: 44px; min-height: 44px;
-}
-#rotateBtn.hidden {
-  opacity: 0; pointer-events: none;
-  transform: translateX(-50%) translateY(14px);
-}
-#rotateBtn:hover, #rotateBtn:focus-visible {
-  background: rgba(255,255,255,0.09);
-  border-color: rgba(255,255,255,0.32);
-  color: #fff; outline: none;
-}
-#rotateBtn:active { transform: translateX(-50%) scale(0.97); }
-
-/* ── MAIN SCROLL LAYER ──────────────────────────────────────────────────────── */
-main { position: relative; z-index: 2; }
-
-/* ── SECTION TRANSITION FADES ───────────────────────────────────────────────── */
-.fade-to-dark {
-  height: 110px; pointer-events: none;
-  background: linear-gradient(to bottom, transparent, rgba(5,15,34,0.97));
-}
-.fade-to-clear {
-  height: 110px; pointer-events: none;
-  background: linear-gradient(to bottom, rgba(5,15,34,0.97), transparent);
-}
-
-/* ── TRANSPARENT SECTIONS (show 3D through) ─────────────────────────────────── */
-.sec-clear { pointer-events: none; position: relative; background: transparent; }
-
-/* ── DARK SECTION BACKGROUND WRAPPER ───────────────────────────────────────── */
-.sec-dark-bg { background: rgba(5,15,34,0.97); }
-
-/* ── HERO ───────────────────────────────────────────────────────────────────── */
-#hero {
-  height: 100vh; min-height: 560px;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  text-align: center; padding: 0 24px;
-}
-.hero-eyebrow {
-  font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
-  color: rgba(255,255,255,0.45); margin-bottom: 22px;
-}
-.hero-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(48px, 9vw, 104px);
-  font-weight: 700; line-height: 1.07; color: #fff;
-  text-shadow: 0 2px 48px rgba(0,0,0,0.85);
-  margin-bottom: 24px;
-}
-.hero-title em { font-style: italic; color: #7dd9f8; }
-.hero-sub {
-  font-size: clamp(15px, 2vw, 19px);
-  color: rgba(255,255,255,0.62); max-width: 500px; line-height: 1.7;
-  margin-bottom: 52px;
-}
-.scroll-cue {
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  color: rgba(255,255,255,0.38); font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
-  animation: floatDown 2.6s ease-in-out infinite;
-}
-@keyframes floatDown { 0%,100%{transform:translateY(0)} 50%{transform:translateY(9px)} }
-
 /* ── CONTAINER ──────────────────────────────────────────────────────────────── */
-.container { max-width: 1080px; margin: 0 auto; padding: 0 48px; }
+.container { max-width: 1060px; margin: 0 auto; padding: 0 44px; }
 
-/* ── SECTION TYPOGRAPHY ─────────────────────────────────────────────────────── */
-.sec-eyebrow {
-  font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
-  color: rgba(255,255,255,0.38); margin-bottom: 14px;
-}
-.sec-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(34px, 5.5vw, 60px); font-weight: 700;
-  color: #fff; line-height: 1.12; margin-bottom: 18px;
-}
-.sec-lead {
-  font-size: clamp(15px, 1.9vw, 18px); color: rgba(255,255,255,0.65);
-  line-height: 1.75; max-width: 680px;
-}
-.sec-lead em { font-style: italic; color: rgba(255,255,255,0.90); }
-.sec-lead strong { font-weight: 500; color: rgba(255,255,255,0.92); }
-
-/* ── REVEAL ANIMATION ───────────────────────────────────────────────────────── */
+/* ── REVEAL ─────────────────────────────────────────────────────────────────── */
 .reveal {
-  opacity: 0; transform: translateY(36px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
 }
 .reveal.d1 { transition-delay: 0.10s; }
 .reveal.d2 { transition-delay: 0.22s; }
 .reveal.d3 { transition-delay: 0.34s; }
 .reveal.d4 { transition-delay: 0.46s; }
-.reveal.in { opacity: 1; transform: translateY(0); }
+.reveal.in { opacity: 1; transform: none; }
 
-/* ── STATS ──────────────────────────────────────────────────────────────────── */
-.stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 52px; }
+/* ── SECTION LABELS ─────────────────────────────────────────────────────────── */
+.sec-eyebrow {
+  font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+  color: rgba(255,255,255,0.35); margin-bottom: 12px;
+}
+.sec-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 5vw, 56px); font-weight: 700;
+  color: #fff; line-height: 1.12; margin-bottom: 16px;
+}
+.sec-lead {
+  font-size: clamp(15px, 1.9vw, 18px);
+  color: rgba(255,255,255,0.62); line-height: 1.72; max-width: 640px;
+}
+.sec-lead em  { font-style: italic; color: rgba(255,255,255,0.88); }
+.sec-lead strong { font-weight: 500; color: rgba(255,255,255,0.90); }
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════════════════════════════════════ */
+#hero {
+  position: relative;
+  height: 100vh; min-height: 560px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #010915 0%, #03183a 40%, #07305a 70%, #0a4a6a 100%);
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+}
+.hero-bg img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  filter: brightness(0.38) saturate(1.15);
+}
+.hero-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom,
+    rgba(1,9,21,0.55) 0%,
+    rgba(1,9,21,0.12) 45%,
+    rgba(1,9,21,0.68) 100%);
+}
+.hero-content {
+  position: relative; z-index: 1;
+  text-align: center; padding: 0 24px;
+  max-width: 700px;
+}
+.hero-eyebrow {
+  font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+  color: rgba(255,255,255,0.45); margin-bottom: 20px;
+}
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(52px, 10vw, 112px);
+  font-weight: 700; line-height: 1.05; color: #fff;
+  text-shadow: 0 2px 48px rgba(0,0,0,0.80);
+  margin-bottom: 22px;
+}
+.hero-title em { font-style: italic; color: #7de3ff; }
+.hero-sub {
+  font-size: clamp(15px, 2vw, 19px);
+  color: rgba(255,255,255,0.68); line-height: 1.65; margin-bottom: 52px;
+}
+.scroll-cue {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: rgba(255,255,255,0.35); font-size: 10px;
+  letter-spacing: 3px; text-transform: uppercase;
+  animation: floatDown 2.8s ease-in-out infinite;
+}
+@keyframes floatDown { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   EL PROBLEMA
+═══════════════════════════════════════════════════════════════════════════════ */
+#problema {
+  padding: 100px 0 90px;
+  background: #040f26;
+}
+.stats-row {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 18px; margin-top: 48px;
+}
 .stat-card {
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 16px; padding: 30px 24px; text-align: center;
+  border-radius: 14px; padding: 28px 22px; text-align: center;
 }
 .stat-num {
   font-family: 'Playfair Display', serif;
-  font-size: 46px; font-weight: 700;
-  color: #7dd9f8; line-height: 1; margin-bottom: 8px;
+  font-size: 44px; font-weight: 700;
+  color: #7de3ff; line-height: 1; margin-bottom: 8px;
 }
-.stat-label { font-size: 13px; color: rgba(255,255,255,0.52); line-height: 1.55; }
+.stat-label { font-size: 13px; color: rgba(255,255,255,0.50); line-height: 1.5; }
 
-/* ── PROBLEM IMAGES ─────────────────────────────────────────────────────────── */
-.prob-images { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 44px; }
-.prob-img-wrap {
-  border-radius: 14px; overflow: hidden;
-  position: relative; aspect-ratio: 16/10; background: #0a1a30;
+.img-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px; margin-top: 44px;
 }
-.prob-img-wrap img {
+.img-card {
+  position: relative; border-radius: 14px; overflow: hidden;
+  aspect-ratio: 4/3; background: #0a1a30;
+}
+.img-card img {
   width: 100%; height: 100%; object-fit: cover; display: block;
   transition: transform 0.55s ease;
 }
-.prob-img-wrap:hover img { transform: scale(1.05); }
-.img-cap {
+.img-card:hover img { transform: scale(1.04); }
+.img-caption {
   position: absolute; bottom: 0; left: 0; right: 0;
   padding: 10px 14px;
   background: linear-gradient(to top, rgba(0,0,0,0.72), transparent);
-  font-size: 11px; color: rgba(255,255,255,0.68); letter-spacing: 0.5px;
+  font-size: 12px; color: rgba(255,255,255,0.72);
 }
 
-/* ── DIORAMA SECTION ────────────────────────────────────────────────────────── */
-#diorama {
-  height: 100vh; min-height: 560px;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: flex-end;
-  padding-bottom: 80px;
+/* ═══════════════════════════════════════════════════════════════════════════════
+   MI DIORAMA
+═══════════════════════════════════════════════════════════════════════════════ */
+#diorama-section {
+  padding: 88px 0 72px;
+  background: #030b1c;
 }
-.diorama-labels { display: flex; gap: 48px; pointer-events: none; align-items: center; }
-.diorama-label {
-  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
-  font-weight: 500; padding: 9px 22px; border-radius: 40px;
+.diorama-wrap {
+  position: relative;
+  height: 62vh; min-height: 460px; max-height: 680px;
+  margin-top: 36px;
+  border-radius: 22px; overflow: hidden;
+  background: #040d1e;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.60), inset 0 0 0 1px rgba(255,255,255,0.06);
 }
-.diorama-label.poll {
-  color: #ff8f6a; border: 1px solid rgba(255,120,70,0.32);
-  background: rgba(255,80,30,0.09);
+#diorama-canvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
 }
-.diorama-label.cln {
-  color: #7dd9f8; border: 1px solid rgba(125,217,248,0.32);
-  background: rgba(30,180,255,0.09);
+/* Side labels — left/right inside the canvas */
+.d-label {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  z-index: 10; pointer-events: none;
+}
+.d-label.left  { left: 20px; }
+.d-label.right { right: 20px; }
+.d-badge {
+  display: inline-block;
+  font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+  font-weight: 500; padding: 8px 18px; border-radius: 40px;
+}
+.d-badge.poll {
+  color: #ff9070; border: 1px solid rgba(255,120,60,0.30);
+  background: rgba(255,70,20,0.12);
+}
+.d-badge.cln {
+  color: #7de3ff; border: 1px solid rgba(100,220,255,0.28);
+  background: rgba(10,170,255,0.10);
 }
 .diorama-hint {
-  margin-top: 14px; pointer-events: none; text-align: center;
-  font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
-  color: rgba(255,255,255,0.32);
+  margin-top: 14px; text-align: center;
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.28);
 }
 
-/* ── SOLUTION ───────────────────────────────────────────────────────────────── */
-.sol-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 52px; margin-top: 52px; align-items: start; }
-.sol-img-wrap {
+/* Rotate button — inside diorama wrapper */
+#rotateBtn {
+  position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+  z-index: 20;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  padding: 10px 30px; border-radius: 40px;
+  border: 1px solid rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.75); cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px; font-weight: 500; letter-spacing: 3.5px; text-transform: uppercase;
+  white-space: nowrap; -webkit-tap-highlight-color: transparent;
+  transition: background 0.25s, border-color 0.25s, color 0.25s;
+  min-width: 44px; min-height: 44px;
+}
+#rotateBtn:hover { background: rgba(255,255,255,0.10); border-color: rgba(255,255,255,0.32); color: #fff; }
+#rotateBtn:active { transform: translateX(-50%) scale(0.97); }
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   LA SOLUCIÓN
+═══════════════════════════════════════════════════════════════════════════════ */
+#solucion {
+  padding: 100px 0;
+  background: #040f26;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.sol-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 52px; margin-top: 48px; align-items: start;
+}
+.sol-photo {
   border-radius: 18px; overflow: hidden;
   aspect-ratio: 4/3; background: #0a1a30;
-  box-shadow: 0 24px 64px rgba(0,0,0,0.48);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.45);
 }
-.sol-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.sol-steps { display: flex; flex-direction: column; gap: 28px; }
-.step { display: flex; gap: 18px; align-items: flex-start; }
+.sol-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.sol-steps { display: flex; flex-direction: column; gap: 26px; }
+.step { display: flex; gap: 16px; align-items: flex-start; }
 .step-n {
   font-family: 'Playfair Display', serif;
-  font-size: 32px; font-weight: 700; color: #7dd9f8;
-  line-height: 1; flex-shrink: 0; width: 38px; padding-top: 2px;
+  font-size: 30px; font-weight: 700; color: #7de3ff;
+  line-height: 1; flex-shrink: 0; width: 34px; padding-top: 2px;
 }
-.step-txt { font-size: 15px; color: rgba(255,255,255,0.68); line-height: 1.72; }
+.step-txt { font-size: 15px; color: rgba(255,255,255,0.65); line-height: 1.70; }
 .step-txt strong { color: #fff; font-weight: 500; }
-.step-txt em { font-style: italic; color: rgba(255,255,255,0.90); }
+.step-txt em { font-style: italic; color: rgba(255,255,255,0.88); }
 
-/* ── REFLEXIÓN ──────────────────────────────────────────────────────────────── */
-.quote-wrap { max-width: 760px; margin: 0 auto; text-align: center; }
+/* ═══════════════════════════════════════════════════════════════════════════════
+   QUOTE BLOCK
+═══════════════════════════════════════════════════════════════════════════════ */
+.quote-section {
+  padding: 80px 0;
+  background: #02080f;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.quote-inner {
+  max-width: 700px; margin: 0 auto;
+  text-align: center; padding: 0 24px;
+}
 .quote-mark {
   font-family: 'Playfair Display', serif;
-  font-size: 88px; color: rgba(125,217,248,0.20);
-  line-height: 0.4; display: block; margin-bottom: 28px;
+  font-size: 80px; color: rgba(125,227,255,0.18);
+  line-height: 0.3; display: block; margin-bottom: 24px;
 }
-.quote-body {
+.quote-text {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(21px, 3.5vw, 33px); font-style: italic; font-weight: 400;
-  color: rgba(255,255,255,0.90); line-height: 1.55; margin-bottom: 32px;
+  font-size: clamp(20px, 3vw, 30px);
+  font-style: italic; color: rgba(255,255,255,0.88);
+  line-height: 1.60;
 }
-.quote-body .hl { color: #7dd9f8; font-style: normal; }
-.quote-body em { font-style: italic; }
-.quote-reflection {
-  font-size: 16px; color: rgba(255,255,255,0.55);
-  line-height: 1.82; max-width: 600px; margin: 0 auto;
-}
-.quote-reflection em { font-style: italic; color: rgba(255,255,255,0.75); }
+.quote-text .hl { color: #7de3ff; font-style: normal; }
+.quote-text em  { font-style: italic; }
 
-/* ── ACCIÓN ─────────────────────────────────────────────────────────────────── */
-.cta-header { text-align: center; margin-bottom: 56px; }
-.cta-header .sec-lead { margin: 0 auto; }
-.action-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 24px; }
+/* ═══════════════════════════════════════════════════════════════════════════════
+   ACCIÓN
+═══════════════════════════════════════════════════════════════════════════════ */
+#accion {
+  padding: 100px 0;
+  background: #02080f;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.cta-intro { margin-bottom: 52px; }
+.action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
 .ac {
-  border-radius: 20px; padding: 38px 32px; position: relative; overflow: hidden;
+  border-radius: 20px; padding: 36px 30px; position: relative;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.ac:hover { transform: translateY(-4px); box-shadow: 0 20px 52px rgba(0,0,0,0.42); }
+.ac:hover { transform: translateY(-4px); box-shadow: 0 18px 48px rgba(0,0,0,0.40); }
 .ac.pos {
-  background: linear-gradient(135deg, rgba(20,90,70,0.55), rgba(8,50,38,0.75));
-  border: 1px solid rgba(80,210,160,0.16);
+  background: linear-gradient(135deg, rgba(14,82,64,0.55), rgba(6,44,34,0.78));
+  border: 1px solid rgba(60,200,140,0.15);
 }
 .ac.neg {
-  background: linear-gradient(135deg, rgba(80,28,18,0.55), rgba(45,8,8,0.75));
-  border: 1px solid rgba(220,90,50,0.16);
+  background: linear-gradient(135deg, rgba(80,22,14,0.55), rgba(44,8,6,0.78));
+  border: 1px solid rgba(220,80,40,0.15);
 }
-.ac-cmd {
-  font-family: 'Playfair Display', serif;
-  font-size: 28px; font-weight: 700; margin-bottom: 10px; line-height: 1.2;
-}
-.ac.pos .ac-cmd { color: #80ffd4; }
-.ac.neg .ac-cmd { color: #ff9f82; }
-.ac-desc { font-size: 14px; color: rgba(255,255,255,0.60); line-height: 1.65; }
 .ac-tag {
-  position: absolute; top: 16px; right: 18px;
   font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
   padding: 4px 10px; border-radius: 20px;
+  display: inline-block; margin-bottom: 14px;
 }
-.ac.pos .ac-tag { color: rgba(128,255,212,0.68); border: 1px solid rgba(128,255,212,0.18); }
-.ac.neg .ac-tag { color: rgba(255,159,130,0.68); border: 1px solid rgba(255,159,130,0.18); }
+.ac.pos .ac-tag { color: rgba(100,240,170,0.70); border: 1px solid rgba(100,240,170,0.18); }
+.ac.neg .ac-tag { color: rgba(255,140,100,0.70); border: 1px solid rgba(255,140,100,0.18); }
+.ac-cmd {
+  font-family: 'Playfair Display', serif;
+  font-size: 27px; font-weight: 700; line-height: 1.2; margin-bottom: 10px;
+}
+.ac.pos .ac-cmd { color: #6dffca; }
+.ac.neg .ac-cmd { color: #ffaa88; }
+.ac-desc { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.65; }
 
-/* ── FOOTER ─────────────────────────────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════════════════════════════════ */
 footer {
-  background: #02080f; border-top: 1px solid rgba(255,255,255,0.05);
-  padding: 52px 48px; text-align: center; position: relative; z-index: 2;
+  background: #010610; border-top: 1px solid rgba(255,255,255,0.05);
+  padding: 48px 44px; text-align: center;
 }
 .foot-logo {
   font-family: 'Playfair Display', serif;
-  font-size: 19px; color: rgba(255,255,255,0.55); margin-bottom: 12px;
+  font-size: 18px; color: rgba(255,255,255,0.45); margin-bottom: 10px;
 }
-.foot-sub { font-size: 13px; color: rgba(255,255,255,0.28); line-height: 1.9; }
-.foot-sub a { color: rgba(255,255,255,0.45); text-decoration: none; }
-.foot-sub a:hover { color: rgba(255,255,255,0.75); }
+.foot-sub { font-size: 13px; color: rgba(255,255,255,0.25); line-height: 1.9; }
+.foot-sub a { color: rgba(255,255,255,0.40); text-decoration: none; }
+.foot-sub a:hover { color: rgba(255,255,255,0.72); }
 
-/* ── MOBILE ─────────────────────────────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════════════════════
+   MOBILE
+═══════════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 700px) {
   #nav { padding: 14px 20px; }
   .nav-links { display: none; }
   .container { padding: 0 20px; }
-  .stats-row { grid-template-columns: 1fr; }
-  .prob-images { grid-template-columns: 1fr; }
-  .sol-grid { grid-template-columns: 1fr; }
+  .stats-row { grid-template-columns: 1fr; gap: 12px; }
+  .img-grid { grid-template-columns: 1fr; }
+  .sol-grid { grid-template-columns: 1fr; gap: 32px; }
   .action-grid { grid-template-columns: 1fr; }
-  .diorama-labels { gap: 16px; flex-wrap: wrap; justify-content: center; }
-  footer { padding: 40px 20px; }
+  #problema, #solucion, #accion { padding: 70px 0; }
+  #diorama-section { padding: 60px 0 52px; }
+  .diorama-wrap { height: 52vh; min-height: 340px; }
+  .d-label { display: none; }
+  footer { padding: 36px 20px; }
 }
 </style>
 </head>
 <body>
 
-<!-- ════════════════════════════════════════════════════════════════════════════ -->
-<!--  FIXED BACKGROUND LAYER — 3D canvas always sits here                       -->
-<!-- ════════════════════════════════════════════════════════════════════════════ -->
-<div id="scene"></div>
-<div class="vignette"></div>
-
-<!-- ════════════════════════════════════════════════════════════════════════════ -->
-<!--  FIXED NAV                                                                 -->
-<!-- ════════════════════════════════════════════════════════════════════════════ -->
+<!-- ════════════════════════════════════════════════════════════════════════════
+     NAVIGATION
+════════════════════════════════════════════════════════════════════════════════ -->
 <nav id="nav">
   <a class="nav-logo" href="#hero">Nuestro Océano</a>
   <ul class="nav-links">
     <li><a href="#problema">El Problema</a></li>
-    <li><a href="#diorama">El Diorama</a></li>
+    <li><a href="#diorama-section">Mi Diorama</a></li>
     <li><a href="#solucion">La Solución</a></li>
     <li><a href="#accion">Acción</a></li>
   </ul>
 </nav>
 
-<!-- ════════════════════════════════════════════════════════════════════════════ -->
-<!--  FIXED ROTATE BUTTON — visibility toggled by IntersectionObserver          -->
-<!-- ════════════════════════════════════════════════════════════════════════════ -->
-<button id="rotateBtn" aria-label="Toggle auto-rotation">AUTO-ROTATE</button>
-
-<!-- ════════════════════════════════════════════════════════════════════════════ -->
-<!--  MAIN SCROLLING CONTENT                                                    -->
-<!-- ════════════════════════════════════════════════════════════════════════════ -->
-<main>
-
-  <!-- ─────────────────────────────────────────────────────────────────────── -->
-  <!--  SECCIÓN 1 · HERO  (transparent — 3D shows through)                    -->
-  <!-- ─────────────────────────────────────────────────────────────────────── -->
-  <section id="hero" class="sec-clear">
+<!-- ════════════════════════════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-bg">
+    <img
+      src="https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=1920&q=80"
+      alt="El océano"
+      onerror="this.style.display='none'"
+    >
+  </div>
+  <div class="hero-content">
     <p class="hero-eyebrow">Español 3 — Proyecto Final</p>
     <h1 class="hero-title">Nuestro <em>Océano</em></h1>
-    <p class="hero-sub">
-      Un viaje por el agua contaminada y la naturaleza limpia —
-      y lo que todos podemos hacer para proteger el medio ambiente.
-    </p>
+    <p class="hero-sub">La contaminación es un problema real.<br>¿Podemos ayudar?</p>
     <div class="scroll-cue" aria-hidden="true">
       <span>Desplázate</span>
-      <svg width="16" height="22" viewBox="0 0 16 22" fill="none">
-        <path d="M8 1v14M2 10l6 7 6-7"
+      <svg width="14" height="20" viewBox="0 0 14 20" fill="none">
+        <path d="M7 1v12M1 9l6 7 6-7"
           stroke="rgba(255,255,255,0.45)" stroke-width="1.5"
           stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- FADE: transparent → dark -->
-  <div class="fade-to-dark" aria-hidden="true"></div>
+<!-- ════════════════════════════════════════════════════════════════════════════
+     EL PROBLEMA
+════════════════════════════════════════════════════════════════════════════════ -->
+<section id="problema">
+  <div class="container">
 
-  <!-- ─────────────────────────────────────────────────────────────────────── -->
-  <!--  SECCIÓN 2 · EL PROBLEMA  (dark overlay)                               -->
-  <!-- ─────────────────────────────────────────────────────────────────────── -->
-  <div class="sec-dark-bg">
-    <section id="problema" style="padding: 80px 0 92px;">
-      <div class="container">
+    <p class="sec-eyebrow reveal">La Crisis</p>
+    <h2 class="sec-title reveal d1">El Problema</h2>
+    <p class="sec-lead reveal d2">
+      El océano <em>era</em> muy bonito.
+      Los animales <em>vivían</em> en agua clara.
+      Pero la basura <em>llegó</em> a la playa —
+      <strong>por la contaminación</strong>, todo cambió.
+    </p>
 
-        <p class="sec-eyebrow reveal">La Crisis</p>
-        <h2 class="sec-title reveal d1">El Problema del<br>Océano</h2>
-        <p class="sec-lead reveal d2">
-          Antes, el océano <em>era</em> un lugar lleno de vida y color.
-          Los animales marinos <em>vivían</em> en el agua limpia de la playa.
-          Pero la crisis <em>llegó</em> cuando las fábricas y las ciudades
-          empezaron a tirar basura al mar.
-          <strong>Por la contaminación</strong>, el agua del océano
-          cambió para siempre.
-        </p>
-
-        <div class="stats-row">
-          <div class="stat-card reveal d1">
-            <div class="stat-num">8M</div>
-            <div class="stat-label">toneladas de plástico entran al océano cada año</div>
-          </div>
-          <div class="stat-card reveal d2">
-            <div class="stat-num">1M</div>
-            <div class="stat-label">animales marinos mueren por la basura y el plástico</div>
-          </div>
-          <div class="stat-card reveal d3">
-            <div class="stat-num">70%</div>
-            <div class="stat-label">del oxígeno de la Tierra viene del océano</div>
-          </div>
-        </div>
-
-        <div class="prob-images reveal d2">
-          <div class="prob-img-wrap">
-            <img
-              src="https://images.unsplash.com/photo-1621451537084-482c73073a0f?w=800&q=80"
-              alt="Plástico en el océano"
-              onerror="this.style.display='none'"
-            >
-            <div class="img-cap">Plástico flotando en el océano</div>
-          </div>
-          <div class="prob-img-wrap">
-            <img
-              src="https://images.unsplash.com/photo-1618897996318-5a901fa6ca71?w=800&q=80"
-              alt="Contaminación en la playa"
-              onerror="this.style.display='none'"
-            >
-            <div class="img-cap">Basura en la playa — el resultado de la contaminación</div>
-          </div>
-        </div>
-
+    <div class="stats-row">
+      <div class="stat-card reveal d1">
+        <div class="stat-num">8M</div>
+        <div class="stat-label">toneladas de plástico al océano cada año</div>
       </div>
-    </section>
+      <div class="stat-card reveal d2">
+        <div class="stat-num">1M</div>
+        <div class="stat-label">animales marinos mueren por la basura</div>
+      </div>
+      <div class="stat-card reveal d3">
+        <div class="stat-num">70%</div>
+        <div class="stat-label">del oxígeno viene del océano</div>
+      </div>
+    </div>
+
+    <div class="img-grid reveal d2">
+      <div class="img-card">
+        <img
+          src="https://images.unsplash.com/photo-1621451537084-482c73073a0f?w=900&q=80"
+          alt="Plástico en el océano"
+          onerror="this.style.display='none'"
+        >
+        <div class="img-caption">Plástico flotando en el océano</div>
+      </div>
+      <div class="img-card">
+        <img
+          src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=900&q=80"
+          alt="Tortuga marina"
+          onerror="this.style.display='none'"
+        >
+        <div class="img-caption">La tortuga necesita agua limpia para vivir</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════════
+     MI DIORAMA 3D
+════════════════════════════════════════════════════════════════════════════════ -->
+<section id="diorama-section">
+  <div class="container">
+    <p class="sec-eyebrow reveal">Interactivo</p>
+    <h2 class="sec-title reveal d1">Mi Diorama</h2>
+    <p class="sec-lead reveal d2">
+      A la izquierda: el océano contaminado.
+      A la derecha: el océano limpio.
+      Usa el ratón para girar y explorar.
+    </p>
   </div>
 
-  <!-- FADE: dark → transparent -->
-  <div class="fade-to-clear" aria-hidden="true"></div>
+  <div class="container" style="margin-top: 0;">
+    <div class="diorama-wrap reveal d1">
 
-  <!-- ─────────────────────────────────────────────────────────────────────── -->
-  <!--  SECCIÓN 3 · EL DIORAMA  (transparent — 3D shows through)              -->
-  <!-- ─────────────────────────────────────────────────────────────────────── -->
-  <section id="diorama" class="sec-clear">
-    <div class="diorama-labels">
-      <span class="diorama-label poll">← Contaminado</span>
-      <span class="diorama-label cln">Limpio →</span>
+      <!-- Three.js renders here -->
+      <div id="diorama-canvas"></div>
+
+      <!-- Side labels -->
+      <div class="d-label left"><span class="d-badge poll">← Contaminado</span></div>
+      <div class="d-label right"><span class="d-badge cln">Limpio →</span></div>
+
+      <!-- Rotate toggle -->
+      <button id="rotateBtn" aria-label="Toggle auto-rotation">AUTO-ROTATE</button>
+
     </div>
-    <p class="diorama-hint">Arrastra para girar · Explora los dos lados</p>
-  </section>
+    <p class="diorama-hint">Arrastra para girar · Pellizca para hacer zoom</p>
+  </div>
+</section>
 
-  <!-- FADE: transparent → dark -->
-  <div class="fade-to-dark" aria-hidden="true"></div>
+<!-- ════════════════════════════════════════════════════════════════════════════
+     LA SOLUCIÓN
+════════════════════════════════════════════════════════════════════════════════ -->
+<section id="solucion">
+  <div class="container">
 
-  <!-- ─────────────────────────────────────────────────────────────────────── -->
-  <!--  SECCIONES 4 – 6 · LA SOLUCIÓN / REFLEXIÓN / ACCIÓN  (all dark)        -->
-  <!-- ─────────────────────────────────────────────────────────────────────── -->
-  <div class="sec-dark-bg">
+    <p class="sec-eyebrow reveal">El Futuro</p>
+    <h2 class="sec-title reveal d1">La Solución</h2>
+    <p class="sec-lead reveal d2">
+      El océano <em>será</em> limpio otra vez.
+      Los peces <em>vivirán</em> mejor, y la playa <em>estará</em> bonita
+      — <strong>para los animales</strong> y <strong>para nosotros</strong>.
+      Todos <em>cambiaremos</em> el problema juntos.
+    </p>
 
-    <!-- ─── SECCIÓN 4 · LA SOLUCIÓN ──────────────────────────────────────── -->
-    <section id="solucion" style="padding: 96px 0;">
-      <div class="container">
+    <div class="sol-grid">
+      <div class="sol-photo reveal d1">
+        <img
+          src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80"
+          alt="Playa limpia"
+          onerror="this.style.display='none'"
+        >
+      </div>
+      <div class="sol-steps">
+        <div class="step reveal d1">
+          <span class="step-n">1</span>
+          <p class="step-txt">
+            Es importante que <em>reciclemos</em> el plástico
+            en casa y en la escuela.
+          </p>
+        </div>
+        <div class="step reveal d2">
+          <span class="step-n">2</span>
+          <p class="step-txt">
+            Queremos que el gobierno <em>actúe</em> ahora
+            para proteger el océano.
+          </p>
+        </div>
+        <div class="step reveal d3">
+          <span class="step-n">3</span>
+          <p class="step-txt">
+            <strong>Limpia</strong> la playa con tu familia.
+            Cada bolsa de basura ayuda.
+          </p>
+        </div>
+        <div class="step reveal d4">
+          <span class="step-n">4</span>
+          <p class="step-txt">
+            <strong>Usa</strong> menos plástico cada día.
+            Las tortugas te lo agradecen.
+          </p>
+        </div>
+      </div>
+    </div>
 
-        <p class="sec-eyebrow reveal">El Futuro</p>
-        <h2 class="sec-title reveal d1">La Solución</h2>
-        <p class="sec-lead reveal d2">
-          Si trabajamos juntos, el océano <em>será</em> limpio otra vez.
-          Los peces <em>vivirán</em> en agua clara, y la naturaleza
-          <em>volverá</em> a la playa. Juntos, <em>cambiaremos</em>
-          el medio ambiente — <strong>para los animales</strong>
-          y <strong>para el planeta</strong>.
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════════
+     QUOTE
+════════════════════════════════════════════════════════════════════════════════ -->
+<div class="quote-section">
+  <div class="quote-inner">
+    <span class="quote-mark reveal" aria-hidden="true">"</span>
+    <p class="quote-text reveal d1">
+      <em>Contaminamos</em> el océano
+      <span class="hl">por muchos años.</span>
+      No quiero que el océano <span class="hl">muera.</span>
+      Espero que tú también <em>limpies</em> la playa.
+    </p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════════════
+     ACCIÓN
+════════════════════════════════════════════════════════════════════════════════ -->
+<section id="accion">
+  <div class="container">
+
+    <div class="cta-intro">
+      <p class="sec-eyebrow reveal">¿Qué Puedes Hacer?</p>
+      <h2 class="sec-title reveal d1">¡Actúa Ahora!</h2>
+    </div>
+
+    <div class="action-grid">
+      <div class="ac pos reveal d1">
+        <span class="ac-tag">Mando afirmativo</span>
+        <p class="ac-cmd">¡Recicla!</p>
+        <p class="ac-desc">
+          Separa el plástico en casa.
+          Recicla <strong>para</strong> los animales del océano.
         </p>
-
-        <div class="sol-grid">
-          <div class="sol-img-wrap reveal d1">
-            <img
-              src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80"
-              alt="Playa limpia"
-              onerror="this.style.display='none'"
-            >
-          </div>
-          <div class="sol-steps">
-            <div class="step reveal d1">
-              <span class="step-n">1</span>
-              <p class="step-txt">
-                <strong>Es importante</strong> que <em>reciclemos</em>
-                el plástico en casa y en la escuela para no contaminar
-                el agua del océano.
-              </p>
-            </div>
-            <div class="step reveal d2">
-              <span class="step-n">2</span>
-              <p class="step-txt">
-                <strong>Queremos</strong> que el gobierno <em>actúe</em>
-                ahora y ponga leyes para proteger el océano de las
-                fábricas y la basura.
-              </p>
-            </div>
-            <div class="step reveal d3">
-              <span class="step-n">3</span>
-              <p class="step-txt">
-                <strong>Podemos</strong> limpiar la playa con amigos —
-                cada bolsa de basura que recogemos ayuda a los
-                animales marinos a vivir.
-              </p>
-            </div>
-            <div class="step reveal d4">
-              <span class="step-n">4</span>
-              <p class="step-txt">
-                <strong>Necesitamos</strong> usar menos plástico
-                y reciclar todo para conservar el medio ambiente
-                natural del océano y la tierra.
-              </p>
-            </div>
-          </div>
-        </div>
-
       </div>
-    </section>
-
-    <!-- ─── SECCIÓN 5 · REFLEXIÓN ─────────────────────────────────────────── -->
-    <section id="reflexion" style="padding: 96px 0; border-top: 1px solid rgba(255,255,255,0.06);">
-      <div class="container">
-        <div class="quote-wrap">
-
-          <span class="quote-mark reveal" aria-hidden="true">"</span>
-
-          <p class="quote-body reveal d1">
-            <em>Contaminamos</em> el océano
-            <span class="hl">por muchos años</span>
-            sin pensar en los peces y las tortugas.
-            No es necesario que el océano
-            <span class="hl">muera</span>
-            — podemos cambiar ahora.
-          </p>
-
-          <p class="quote-reflection reveal d2">
-            Espero que tú también <em>limpies</em> la playa y protejas
-            el agua de tu ciudad. El calentamiento global y la crisis
-            climática son problemas reales, pero la conservación del
-            océano empieza con pequeñas acciones cada día.
-            El río, el lago, el bosque — toda la naturaleza necesita
-            nuestra ayuda para vivir.
-          </p>
-
-        </div>
+      <div class="ac pos reveal d2">
+        <span class="ac-tag">Mando afirmativo</span>
+        <p class="ac-cmd">¡Protege!</p>
+        <p class="ac-desc">
+          Protege la playa cuando vas al mar.
+          No dejes basura en la arena.
+        </p>
       </div>
-    </section>
-
-    <!-- ─── SECCIÓN 6 · ACCIÓN ────────────────────────────────────────────── -->
-    <section id="accion" style="padding: 96px 0; background: rgba(2,8,16,0.35); border-top: 1px solid rgba(255,255,255,0.06);">
-      <div class="container">
-
-        <div class="cta-header">
-          <p class="sec-eyebrow reveal">¿Qué Podemos Hacer?</p>
-          <h2 class="sec-title reveal d1">¡Actúa Ahora!</h2>
-          <p class="sec-lead reveal d2">
-            Cuatro cosas que puedes hacer hoy para proteger
-            el océano y el medio ambiente.
-          </p>
-        </div>
-
-        <div class="action-grid">
-          <div class="ac pos reveal d1">
-            <span class="ac-tag">Mando afirmativo</span>
-            <p class="ac-cmd">¡Recicla!</p>
-            <p class="ac-desc">
-              Separa el plástico, el vidrio y el papel en casa.
-              Cada cosa que reciclas ayuda a limpiar el océano
-              y a proteger los animales marinos.
-            </p>
-          </div>
-          <div class="ac pos reveal d2">
-            <span class="ac-tag">Mando afirmativo</span>
-            <p class="ac-cmd">¡Protege!</p>
-            <p class="ac-desc">
-              Protege los animales marinos — no tires basura al agua
-              ni a la playa. La tortuga y los peces necesitan
-              el océano limpio para vivir.
-            </p>
-          </div>
-          <div class="ac neg reveal d3">
-            <span class="ac-tag">Mando negativo</span>
-            <p class="ac-cmd">¡No contamines!</p>
-            <p class="ac-desc">
-              No contamines el río ni el lago de tu ciudad.
-              La basura del río llega al océano y daña la naturaleza
-              y el medio ambiente de todo el planeta.
-            </p>
-          </div>
-          <div class="ac neg reveal d4">
-            <span class="ac-tag">Mando negativo</span>
-            <p class="ac-cmd">¡No uses plástico!</p>
-            <p class="ac-desc">
-              No uses plástico de un solo uso en la playa.
-              Usa bolsas de tela y botellas reutilizables
-              para conservar el océano limpio.
-            </p>
-          </div>
-        </div>
-
+      <div class="ac neg reveal d3">
+        <span class="ac-tag">Mando negativo</span>
+        <p class="ac-cmd">¡No contamines!</p>
+        <p class="ac-desc">
+          No contamines el agua del río
+          ni de la playa. Los peces viven allí.
+        </p>
       </div>
-    </section>
+      <div class="ac neg reveal d4">
+        <span class="ac-tag">Mando negativo</span>
+        <p class="ac-cmd">¡No uses plástico!</p>
+        <p class="ac-desc">
+          No uses plástico de un solo uso.
+          Usa botellas reutilizables en la playa.
+        </p>
+      </div>
+    </div>
 
-  </div><!-- /.sec-dark-bg -->
+  </div>
+</section>
 
-</main>
-
-<!-- ════════════════════════════════════════════════════════════════════════════ -->
-<!--  FOOTER                                                                    -->
-<!-- ════════════════════════════════════════════════════════════════════════════ -->
+<!-- ════════════════════════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════════════════════════════ -->
 <footer>
   <p class="foot-logo">Nuestro Océano</p>
   <p class="foot-sub">
-    Proyecto Final de Español 3 · La Contaminación del Océano<br>
-    Diorama 3D creado con <a href="https://threejs.org" target="_blank" rel="noopener">Three.js</a> ·
-    Fotografías de <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a>
+    Proyecto Final · Español 3<br>
+    3D con <a href="https://threejs.org" target="_blank" rel="noopener">Three.js</a> ·
+    Fotos de <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a>
   </p>
 </footer>
 
-<!-- ════════════════════════════════════════════════════════════════════════════ -->
-<!--  THREE.JS                                                                  -->
-<!-- ════════════════════════════════════════════════════════════════════════════ -->
+<!-- ════════════════════════════════════════════════════════════════════════════
+     THREE.JS
+════════════════════════════════════════════════════════════════════════════════ -->
 <script type="importmap">
 {
   "imports": {
@@ -647,40 +658,43 @@ const Q = {
   dpr:         Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2),
 };
 
-// ─── RENDERER ─────────────────────────────────────────────────────────────────
-const container = document.getElementById('scene');
-const renderer  = new THREE.WebGLRenderer({ antialias: !isMobile, powerPreference: 'high-performance' });
-renderer.setSize(window.innerWidth, window.innerHeight);
+// ─── RENDERER — contained in the diorama section ──────────────────────────────
+const canvasContainer = document.getElementById('diorama-canvas');
+const cW = canvasContainer.clientWidth  || 800;
+const cH = canvasContainer.clientHeight || 500;
+
+const renderer = new THREE.WebGLRenderer({ antialias: !isMobile, powerPreference: 'high-performance' });
+renderer.setSize(cW, cH);
 renderer.setPixelRatio(Q.dpr);
 renderer.shadowMap.enabled        = true;
 renderer.shadowMap.type           = isMobile ? THREE.BasicShadowMap : THREE.PCFSoftShadowMap;
 renderer.toneMapping              = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure      = 1.15;
 renderer.outputColorSpace         = THREE.SRGBColorSpace;
-container.appendChild(renderer.domElement);
+canvasContainer.appendChild(renderer.domElement);
 
 // ─── SCENE + FOG ──────────────────────────────────────────────────────────────
 const scene = new THREE.Scene();
 scene.fog   = new THREE.FogExp2(0x9ac4d8, 0.007);
 
 // ─── SKY ──────────────────────────────────────────────────────────────────────
-const skyCanvas    = document.createElement('canvas');
-skyCanvas.width    = 4;
-skyCanvas.height   = 512;
-const skyCtx       = skyCanvas.getContext('2d');
-const skyGrad      = skyCtx.createLinearGradient(0, 0, 0, 512);
+const skyCanvas  = document.createElement('canvas');
+skyCanvas.width  = 4;
+skyCanvas.height = 512;
+const skyCtx     = skyCanvas.getContext('2d');
+const skyGrad    = skyCtx.createLinearGradient(0, 0, 0, 512);
 skyGrad.addColorStop(0.00, '#050f22');
 skyGrad.addColorStop(0.28, '#0d3468');
 skyGrad.addColorStop(0.55, '#1a72b8');
 skyGrad.addColorStop(0.78, '#5ab4d8');
 skyGrad.addColorStop(0.90, '#f0c870');
 skyGrad.addColorStop(1.00, '#d06828');
-skyCtx.fillStyle   = skyGrad;
+skyCtx.fillStyle = skyGrad;
 skyCtx.fillRect(0, 0, 4, 512);
-scene.background   = new THREE.CanvasTexture(skyCanvas);
+scene.background = new THREE.CanvasTexture(skyCanvas);
 
 // ─── CAMERA ───────────────────────────────────────────────────────────────────
-const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.5, 600);
+const camera = new THREE.PerspectiveCamera(50, cW / cH, 0.5, 600);
 camera.position.set(0, 22, 52);
 camera.lookAt(0, 1.5, 0);
 
@@ -692,29 +706,20 @@ controls.minDistance   = 20;
 controls.maxDistance   = 95;
 controls.maxPolarAngle = Math.PI / 2.1;
 controls.target.set(0, 1.5, 0);
-controls.enableZoom    = false; // prevents scroll-wheel zoom from competing with page scroll
+controls.enableZoom    = false; // prevents zoom conflict with page scroll
 // NOTE: do NOT set controls.touches — THREE.TOUCH is not exported from three@0.160
-// OrbitControls already defaults to ROTATE (1-finger) + DOLLY_PAN (2-finger)
 
 // ─── POST-PROCESSING ──────────────────────────────────────────────────────────
-// OutputPass is required in r152+ to correctly apply tone mapping + color space
-// through the composer pipeline.
 let composer = null;
 if (Q.bloom) {
   composer = new EffectComposer(renderer);
   composer.addPass(new RenderPass(scene, camera));
-  composer.addPass(new UnrealBloomPass(
-    new THREE.Vector2(window.innerWidth, window.innerHeight), 0.48, 0.38, 0.85
-  ));
-  composer.addPass(new OutputPass()); // applies ACES + sRGB at the end of the chain
+  composer.addPass(new UnrealBloomPass(new THREE.Vector2(cW, cH), 0.48, 0.38, 0.85));
+  composer.addPass(new OutputPass());
 }
 
 function doRender() {
-  if (composer) {
-    composer.render();
-  } else {
-    renderer.render(scene, camera);
-  }
+  if (composer) { composer.render(); } else { renderer.render(scene, camera); }
 }
 
 // ─── LIGHTING ─────────────────────────────────────────────────────────────────
@@ -796,7 +801,7 @@ const pollWaterFrag = /* glsl */`
 `;
 
 function buildWater(vert, frag, segs, cx) {
-  const geo = new THREE.PlaneGeometry(40, 26, segs[0], segs[1]);
+  const geo  = new THREE.PlaneGeometry(40, 26, segs[0], segs[1]);
   geo.rotateX(-Math.PI / 2);
   const uni  = { time: { value: 0.0 } };
   const mat  = new THREE.ShaderMaterial({ uniforms: uni, vertexShader: vert, fragmentShader: frag, transparent: true, depthWrite: false });
@@ -951,8 +956,7 @@ function makeTurtle(sMat, bMat) {
   const eyeR = new THREE.Mesh(new THREE.SphereGeometry(0.058, 8, 6), mEye);
   eyeR.position.set(0.16, 0.20, 1.60);
   grp.add(eyeR);
-  const flipperDefs = [[-0.92, 0, 0.52], [0.92, 0, 0.52], [-0.80, 0, -0.82], [0.80, 0, -0.82]];
-  flipperDefs.forEach(([fx, fy, fz]) => {
+  [[-0.92,0,0.52],[0.92,0,0.52],[-0.80,0,-0.82],[0.80,0,-0.82]].forEach(([fx, fy, fz]) => {
     const f = new THREE.Mesh(new THREE.SphereGeometry(0.30, 12, 10), bMat);
     f.position.set(fx, fy, fz);
     f.scale.set(1.85, 0.38, 1.0);
@@ -987,12 +991,10 @@ function makeSeagull() {
   grp.add(bd);
   const wMat = new THREE.MeshStandardMaterial({ color: 0xf8f8fa, side: THREE.DoubleSide, roughness: 0.38 });
   const wL   = new THREE.Mesh(new THREE.PlaneGeometry(0.70, 0.20), wMat);
-  wL.position.set(0, 0, 0.30);
-  wL.rotation.x = -Math.PI / 2;
+  wL.position.set(0, 0, 0.30); wL.rotation.x = -Math.PI / 2;
   grp.add(wL);
   const wR = new THREE.Mesh(new THREE.PlaneGeometry(0.70, 0.20), wMat);
-  wR.position.set(0, 0, -0.30);
-  wR.rotation.x = -Math.PI / 2;
+  wR.position.set(0, 0, -0.30); wR.rotation.x = -Math.PI / 2;
   grp.add(wR);
   grp.userData.wL     = wL;
   grp.userData.wR     = wR;
@@ -1021,16 +1023,15 @@ for (let i = 0; i < 10; i++) {
   s.scale.set(1, 1, 0.55); s.castShadow = true;
   scene.add(s);
 }
-scene.add(makeStarfish(16,  3, 1.7));
-scene.add(makeStarfish(24,  6, 1.4));
-scene.add(makeStarfish(32,  2, 1.9));
+scene.add(makeStarfish(16, 3, 1.7));
+scene.add(makeStarfish(24, 6, 1.4));
+scene.add(makeStarfish(32, 2, 1.9));
 
 const happyTurtle = makeTurtle(mTShell, mTBody);
 happyTurtle.position.set(9, 0.62, -2);
 happyTurtle.rotation.y = -0.45;
 scene.add(happyTurtle);
 
-// Fish school
 const fishGroup  = new THREE.Group();
 const fishMeshes = [];
 [[mFishO,1.1],[mFishB,0.92],[mFishO,1.0],[mFishB,1.18],
@@ -1051,9 +1052,8 @@ const fishMeshes = [];
 fishGroup.position.set(20, 0, 0);
 scene.add(fishGroup);
 
-// Seagulls
 const birds = [];
-[[10,12, 2],[18,14,-3],[26,13, 1],[14,15, 4]].forEach(([x, y, z]) => {
+[[10,12,2],[18,14,-3],[26,13,1],[14,15,4]].forEach(([x, y, z]) => {
   const b = makeSeagull();
   b.position.set(x, y, z);
   b.userData.baseY    = y;
@@ -1064,27 +1064,16 @@ const birds = [];
   scene.add(b);
 });
 
-// Sun (emissive glow layers; bloom amplifies emissive surfaces)
-const sunCore = new THREE.Mesh(
-  new THREE.SphereGeometry(1.5, 24, 18),
-  new THREE.MeshBasicMaterial({ color: 0xfffce8 })
-);
+const sunCore = new THREE.Mesh(new THREE.SphereGeometry(1.5, 24, 18), new THREE.MeshBasicMaterial({ color: 0xfffce8 }));
 sunCore.position.set(28, 18, -20);
 scene.add(sunCore);
-const sunGl1 = new THREE.Mesh(
-  new THREE.SphereGeometry(2.4, 24, 18),
-  new THREE.MeshBasicMaterial({ color: 0xffd060, transparent: true, opacity: 0.34 })
-);
+const sunGl1 = new THREE.Mesh(new THREE.SphereGeometry(2.4, 24, 18), new THREE.MeshBasicMaterial({ color: 0xffd060, transparent: true, opacity: 0.34 }));
 sunGl1.position.copy(sunCore.position);
 scene.add(sunGl1);
-const sunGl2 = new THREE.Mesh(
-  new THREE.SphereGeometry(3.6, 24, 18),
-  new THREE.MeshBasicMaterial({ color: 0xff9020, transparent: true, opacity: 0.11 })
-);
+const sunGl2 = new THREE.Mesh(new THREE.SphereGeometry(3.6, 24, 18), new THREE.MeshBasicMaterial({ color: 0xff9020, transparent: true, opacity: 0.11 }));
 sunGl2.position.copy(sunCore.position);
 scene.add(sunGl2);
 
-// Bubbles
 const bubbles = [];
 for (let i = 0; i < 24; i++) {
   const b = new THREE.Mesh(
@@ -1098,7 +1087,6 @@ for (let i = 0; i < 24; i++) {
   scene.add(b);
 }
 
-// White clouds
 const cldMat = new THREE.MeshStandardMaterial({ color: 0xfafafa, roughness: 0.92 });
 const clouds  = [];
 [[8,12,-12],[20,14,-8],[30,13,-16],[15,15,0]].forEach(([x, y, z]) => {
@@ -1151,9 +1139,9 @@ for (let i = 0; i < 45; i++) {
     new THREE.MeshStandardMaterial({ color: Math.random() > 0.5 ? 0xdddddd : 0xcc4444, roughness: 0.52 })
   );
   p.position.set(-3 - Math.random() * 35, 0.14, -2 - Math.random() * 22);
-  p.rotation.y    = Math.random() * Math.PI;
-  p.userData.dx   = (Math.random() - 0.5) * 0.009;
-  p.userData.dz   = (Math.random() - 0.5) * 0.007;
+  p.rotation.y  = Math.random() * Math.PI;
+  p.userData.dx = (Math.random() - 0.5) * 0.009;
+  p.userData.dz = (Math.random() - 0.5) * 0.007;
   trashParticles.push(p);
   scene.add(p);
 }
@@ -1222,8 +1210,8 @@ const darkClouds = [];
 });
 
 // ─── ANIMATION LOOP ───────────────────────────────────────────────────────────
-let autoRotate        = true;
-controls.autoRotate   = true;
+let autoRotate     = true;
+controls.autoRotate      = true;
 controls.autoRotateSpeed = 0.32;
 
 const btn = document.getElementById('rotateBtn');
@@ -1241,11 +1229,9 @@ function animate() {
   controls.autoRotate = autoRotate;
   controls.update();
 
-  // Shader time uniforms
   CWU.time.value = t;
   PWU.time.value = t;
 
-  // Fish school orbit
   fishMeshes.forEach((f, i) => {
     const a      = f.userData.baseA + t * f.userData.speed;
     const r      = f.userData.radius;
@@ -1256,12 +1242,10 @@ function animate() {
     if (f.children[1]) f.children[1].rotation.y = Math.sin(t * 12 + i * 0.8) * 0.06;
   });
 
-  // Turtles
   happyTurtle.position.y = 0.62 + Math.sin(t * 1.08) * 0.09;
   happyTurtle.rotation.z = Math.sin(t * 0.72) * 0.07;
   sickTurtle.rotation.z  = Math.sin(t * 0.32) * 0.026;
 
-  // Birds
   birds.forEach((b, i) => {
     b.userData.orbitA += b.userData.orbitSpd * 0.016;
     const a = b.userData.orbitA;
@@ -1273,18 +1257,15 @@ function animate() {
     b.userData.wR.rotation.y = -Math.sin(t * 9.5 + b.userData.offset) * 0.72;
   });
 
-  // Clouds
   clouds.forEach((c, i)     => { c.position.x = c.userData.baseX + Math.sin(t * 0.07 + i)       * 1.0; });
   darkClouds.forEach((c, i) => { c.position.x = c.userData.baseX + Math.sin(t * 0.04 + i * 1.5) * 0.6; });
 
-  // Smoke rises
   smokeParticles.forEach(s => {
-    s.position.x = s.userData.baseX + Math.sin(t * 0.22 + s.userData.off) * 0.6;
+    s.position.x  = s.userData.baseX + Math.sin(t * 0.22 + s.userData.off) * 0.6;
     s.position.y += 0.0025;
     if (s.position.y > 15) s.position.y = 5;
   });
 
-  // Floating trash
   trashParticles.forEach(p => {
     p.position.x += p.userData.dx;
     p.position.z += p.userData.dz;
@@ -1293,14 +1274,12 @@ function animate() {
     if (p.position.z >  0   || p.position.z < -24) p.userData.dz *= -1;
   });
 
-  // Bubbles
   bubbles.forEach(b => {
     b.position.y += b.userData.spd;
     b.position.x += Math.sin(t * 2.1 + b.userData.off) * 0.0028;
     if (b.position.y > 2.0) b.position.y = 0.12;
   });
 
-  // Sun pulse
   sunGl1.scale.setScalar(1 + Math.sin(t * 1.9) * 0.055);
   sunGl2.scale.setScalar(1 + Math.sin(t * 1.3) * 0.10);
 
@@ -1310,7 +1289,9 @@ animate();
 
 // ─── RESIZE ───────────────────────────────────────────────────────────────────
 window.addEventListener('resize', () => {
-  const w = window.innerWidth, h = window.innerHeight;
+  const w = canvasContainer.clientWidth;
+  const h = canvasContainer.clientHeight;
+  if (!w || !h) return;
   camera.aspect = w / h;
   camera.updateProjectionMatrix();
   renderer.setSize(w, h);
@@ -1321,30 +1302,17 @@ window.addEventListener('resize', () => {
 //  WEBSITE JS
 // ════════════════════════════════════════════════════════════════════════════════
 
-// ─── NAV: go solid on scroll ──────────────────────────────────────────────────
+// Nav: go solid on scroll
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('solid', window.scrollY > 60);
 }, { passive: true });
 
-// ─── REVEAL ANIMATIONS ────────────────────────────────────────────────────────
+// Reveal animations
 const revObs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
-}, { threshold: 0.12 });
+}, { threshold: 0.10 });
 document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
-
-// ─── ROTATE BUTTON: hide when 3D not visible ─────────────────────────────────
-// Show button only when hero or diorama transparent sections are in view
-const visible3D = new Set();
-const btnObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) visible3D.add(e.target.id);
-    else                  visible3D.delete(e.target.id);
-  });
-  btn.classList.toggle('hidden', visible3D.size === 0);
-}, { threshold: 0.05 });
-btnObs.observe(document.getElementById('hero'));
-btnObs.observe(document.getElementById('diorama'));
 </script>
 </body>
 </html>
