@@ -284,6 +284,14 @@ img { display: block; }
   color: var(--ocean); border: 1px solid rgba(13,212,240,0.26);
   background: rgba(13,212,240,0.08);
 }
+.diorama-labels {
+  display: flex; justify-content: space-between;
+  margin-top: 16px; padding: 0 4px;
+}
+.diorama-labels span {
+  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(255,255,255,0.30);
+}
 .diorama-foot {
   margin-top: 14px; text-align: center;
   font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
@@ -538,11 +546,10 @@ footer {
   <div class="wrap">
     <span class="eyebrow reveal">Arte Interactivo en 3D</span>
     <h2 class="headline reveal d1">El Mar Contaminado<br>y el Mar Limpio</h2>
-    <p class="body-lead reveal d2">
-      A la izquierda: el mar contaminado.<br>
-      A la derecha: el mar limpio.<br>
-      Arrastra para explorar los dos lados.
-    </p>
+    <div class="diorama-labels reveal d2">
+      <span>Antes</span>
+      <span>Después</span>
+    </div>
   </div>
 
   <div class="wrap" style="margin-top: 0;">
@@ -625,7 +632,7 @@ footer {
 
     <div class="actua-quote reveal d2">
       <p>
-        No quiero que el mar <span class="hl-w">muera</span>
+        No quiero que el mar <span class="hl-w">esté contaminado</span>
         por el plástico.
         Espero que tú también <span class="hl">cuides</span> la playa.
       </p>
@@ -636,14 +643,13 @@ footer {
         <p class="cmd-text">¡Recicla las latas!</p>
         <p class="cmd-desc">
           Separa el plástico y las latas en casa.
-          Hazlo <em>para</em> los animales del mar.
+          Recicla <em>para</em> ayudar el mar.
         </p>
       </div>
       <div class="cmd yes reveal d2">
         <p class="cmd-text">¡Protege el mar!</p>
         <p class="cmd-desc">
-          Únete a una limpieza de playa en Malibu
-          o Santa Mónica este fin de semana.
+          Ayuda a limpiar la playa en Los Ángeles.
         </p>
       </div>
       <div class="cmd no reveal d3">
